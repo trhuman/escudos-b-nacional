@@ -2,11 +2,11 @@ const fs = require('fs');
 
 async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
-  console.log("Consultando la Primera Nacional en la API oficial...");
+  console.log("Consultando resultados por liga en la API oficial...");
 
   try {
-    // Apuntamos al endpoint específico filtrando por la liga de Argentina Primera Nacional (ID 1189)
-    const response = await fetch("https://api.goal-api.com/v1/leagues/1189/fixtures", {
+    // Usamos el endpoint oficial de resultados por ID de liga que muestra la documentación
+    const response = await fetch("https://api.goal-api.com/v1/results/league/1189", {
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
         "Accept": "application/json"
@@ -19,8 +19,8 @@ async function actualizarConApiOficial() {
 
     const jsonResponse = await response.json();
     
-    // Extraemos la lista de partidos de la respuesta estructurada
-    const rawFixtures = jsonResponse.data || jsonResponse.fixtures || jsonResponse.matches || [];
+    // Extraemos la lista de partidos desde la respuesta de resultados por liga
+    const rawMatches = jsonResponse.data || jsonResponse.results || jsonResponse.matches || jsonResponse || [];
 
     // Mapeo exacto de nombres de equipos a tus archivos de escudos locales
     const mapEscudo = (nombreRaw) => {
@@ -75,13 +75,14 @@ async function actualizarConApiOficial() {
     let partidosArray = [];
     let fechaActualTexto = "Fecha Actual";
 
-    if (Array.isArray(rawFixtures) && rawFixtures.length > 0) {
-      // Tomamos la fecha activa o la última jornada disponible de los partidos devueltos
-      for (const match of rawFixtures) {
-        const localNombre = match.homeTeam?.name || match.home_team || "";
-        const visitaNombre = match.awayTeam?.name || match.away_team || "";
-        const golesL = match.homeScore ?? match.home_score ?? 0;
-        const golesV = match.awayScore ?? match.away_score ?? 0;
+    const listaPartidos = Array.isArray(rawMatches) ? rawMatches : [];
+
+    if (listaPartidos.length > 0) {
+      for (const match of listaPartidos) {
+        const localNombre = match.homeTeam?.name || match.home_team || match.local || "";
+        const visitaNombre = match.awayTeam?.name || match.away_team || match.visitante || "";
+        const golesL = match.homeScore ?? match.home_score ?? match.goalsHome ?? 0;
+        const golesV = match.awayScore ?? match.away_score ?? match.goalsAway ?? 0;
         
         if (match.round) {
           fechaActualTexto = match.round;
@@ -107,7 +108,7 @@ async function actualizarConApiOficial() {
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Sincronización correcta! Se guardaron ${partidosArray.length} partidos de la Primera Nacional.`);
+    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos de la Primera Nacional.`);
 
   } catch (error) {
     console.error("Error crítico al procesar la API:", error.message);
