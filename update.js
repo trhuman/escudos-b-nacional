@@ -7,7 +7,7 @@ async function actualizarConApiOficial() {
   console.log("Consultando /results de la API oficial para la temporada 2026...");
 
   try {
-    // Agregamos ?season=2026 que era lo que le faltaba a la URL
+    // Usamos el endpoint /results con la temporada, que trae la estructura limpia de la documentación
     const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/results?season=2026`, {
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
@@ -23,47 +23,62 @@ async function actualizarConApiOficial() {
     const listaPartidos = jsonResponse.data || [];
 
     if (listaPartidos.length === 0) {
-      throw new Error("La API no devolvió resultados para esta temporada.");
+      throw new Error("La API no devolvió resultados.");
     }
 
-    // Agrupamos los partidos por su fecha (buscando tanto 'date' como 'matchDate')
-    const partidosPorFecha = {};
+    // Agrupamos los partidos por el identificador de ronda/fecha que traiga el objeto (ej. matchRound o round), 
+    // o por la fecha de calendario si la API los agrupa así.
+    const rondasResultados = {};
     for (const match of listaPartidos) {
-      const fechaPartido = (match.date || match.matchDate || "").split('T')[0];
-      if (fechaPartido) {
-        if (!partidosPorFecha[fechaPartido]) {
-          partidosPorFecha[fechaPartido] = [];
+      // Priorizamos matchRound si viene en el resultado, sino caemos en la fecha de calendario 'date'
+      const claveFecha = match.matchRound || match.round || match.date;
+      if (claveFecha) {
+        if (!rondasResultados[claveFecha]) {
+          rondasResultados[claveFecha] = [];
         }
-        partidosPorFecha[fechaPartido].push(match);
+        rondasResultados[claveFecha].push(match);
       }
     }
 
-    const fechasDisponibles = Object.keys(partidosPorFecha).sort();
-
-    if (fechasDisponibles.length === 0) {
-      throw new Error("No se encontraron fechas válidas en los resultados.");
+    const clavesDisponibles = Object.keys(rondasResultados);
+    if (clavesDisponibles.length === 0) {
+      throw new Error("No se pudieron agrupar los resultados.");
     }
 
-    // Seleccionamos la fecha más reciente (la última del array ordenado)
-    const ultimaFecha = fechasDisponibles[fechasDisponibles.length - 1];
-    console.log(`Última fecha detectada en /results: ${ultimaFecha}`);
+    // Tomamos la última clave disponible (la ronda más alta o la fecha más reciente)
+    // Si son números de ronda, los ordenamos numéricamente; si son fechas (YYYY-MM-DD), alfabéticamente.
+    clavesDisponibles.sort((a, b) => {
+      const numA = parseInt(a, 10);
+      const numB = parseInt(b, 10);
+      if (!isNaN(numA) && !isNaN(numB)) {
+        return numA - numB;
+      }
+      return a.localeCompare(b);
+    });
 
-    const partidosDeLaFecha = partidosPorFecha[ultimaFecha] || [];
+    const ultimaClave = clavesDisponibles[clavesDisponibles.length - 1];
+    const partidosDeLaFecha = rondasResultados[ultimaClave] || [];
+
+    console.log(`Bloque de última fecha detectado (${ultimaClave}): ${partidosDeLaFecha.length} partidos encontrados.`);
+
     let partidosArray = [];
 
     for (const match of partidosDeLaFecha) {
+      // Mapeo exacto según la documentación que enviaste (homeTeam.name, awayTeam.name, score)
       const localNombre = match.homeTeam?.name || "";
       const visitaNombre = match.awayTeam?.name || "";
       
-      // Parseamos el score formato "3 - 2" tal cual la documentación
       let golesL = 0;
       let golesV = 0;
+      
+      // El score viene como string "3 - 2" tal cual indicaba la documentación
       if (match.score && typeof match.score === 'string' && match.score.includes('-')) {
         const partes = match.score.split('-');
         golesL = parseInt(partes[0].trim(), 10) || 0;
         golesV = parseInt(partes[1].trim(), 10) || 0;
       }
 
+      // Los escudos vienen dentro de homeTeam.badge y awayTeam.badge
       const escudoLocal = match.homeTeam?.badge || "escudo_default.png";
       const escudoVisitante = match.awayTeam?.badge || "escudo_default.png";
 
@@ -79,14 +94,17 @@ async function actualizarConApiOficial() {
       }
     }
 
+    // Determinamos el nombre amigable para la etiqueta de fecha
+    const nombreFechaLabel = !isNaN(parseInt(ultimaClave, 10)) ? `Fecha ${ultimaClave}` : `Resultados del ${ultimaClave}`;
+
     const resultadoFinal = {
-      fecha: `Resultados del ${ultimaFecha}`,
+      fecha: nombreFechaLabel,
       actualizado: new Date().toISOString(),
       partidos: partidosArray
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos de la fecha ${ultimaFecha}.`);
+    console.log(`¡Éxito total! Se guardaron ${partidosArray.length} partidos correspondientes a ${nombreFechaLabel}.`);
 
   } catch (error) {
     console.error("Error en el script:", error.message);
