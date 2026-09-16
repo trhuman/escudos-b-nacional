@@ -1,6 +1,6 @@
 {
   "fecha": "Fecha 29",
-  "actualizado": "2026-09-16T08:31:34.267Z",
+  "actualizado": "2026-09-16T08:36:31.623Z",
   "partidos": [
     {
       "local": "Def. de Belgrano",
@@ -8,6 +8,86 @@
       "golesLocal": 2,
       "visitante": "Deportivo Madryn",
       "archivoVisitante": "deportivo_madryn.png",
+      "golesVisitante": 1
+    },
+    {
+      "local": "San Martin T.",
+      "archivoLocal": "san_martin_t.png",
+      "golesLocal": 3,
+      "visitante": "Agropecuario",
+      "archivoVisitante": "agropecuario.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Godoy Cruz",
+      "archivoLocal": "godoy_cruz.png",
+      "golesLocal": 2,
+      "visitante": "Colon Santa Fe",
+      "archivoVisitante": "colon.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Midland",
+      "archivoLocal": "midland.png",
+      "golesLocal": 1,
+      "visitante": "Chacarita Juniors",
+      "archivoVisitante": "chacarita.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "CA Mitre",
+      "archivoLocal": "mitre_se.png",
+      "golesLocal": 0,
+      "visitante": "Chaco For Ever",
+      "archivoVisitante": "chaco_for_ever.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Gimnasia Jujuy",
+      "archivoLocal": "gimnasia_jujuy.png",
+      "golesLocal": 2,
+      "visitante": "Atl. Rafaela",
+      "archivoVisitante": "atletico_rafaela.png",
+      "golesVisitante": 1
+    },
+    {
+      "local": "Racing Cordoba",
+      "archivoLocal": "racing_cba.png",
+      "golesLocal": 1,
+      "visitante": "Deportivo Moron",
+      "archivoVisitante": "deportivo_moron.png",
+      "golesVisitante": 2
+    },
+    {
+      "local": "Almirante Brown",
+      "archivoLocal": "almirante_brown.png",
+      "golesLocal": 0,
+      "visitante": "Ferro",
+      "archivoVisitante": "ferro.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "CA Estudiantes",
+      "archivoLocal": "estudiantes_ba.png",
+      "golesLocal": 1,
+      "visitante": "Acassuso",
+      "archivoVisitante": "acassuso.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Patronato",
+      "archivoLocal": "patronato.png",
+      "golesLocal": 0,
+      "visitante": "Temperley",
+      "archivoVisitante": "temperley.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Los Andes",
+      "archivoLocal": "los_andes.png",
+      "golesLocal": 1,
+      "visitante": "San Miguel",
+      "archivoVisitante": "san_miguel.png",
       "golesVisitante": 1
     }
   ]
