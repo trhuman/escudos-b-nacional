@@ -2,10 +2,11 @@ const fs = require('fs');
 
 async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
-  console.log("Iniciando consulta a Goal API...");
+  console.log("Consultando la API oficial mediante la ruta de ligas...");
 
   try {
-    const response = await fetch("https://api.goal-api.com/v1/results/league/1189", {
+    // Usamos la ruta oficial basada en la documentación: /leagues/:id/results
+    const response = await fetch("https://api.goal-api.com/v1/leagues/1189/results", {
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
         "Accept": "application/json"
@@ -13,27 +14,14 @@ async function actualizarConApiOficial() {
     });
 
     if (!response.ok) {
-      throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
+      throw new Error(`Error en la API oficial: ${response.status} ${response.statusText}`);
     }
 
     const jsonResponse = await response.json();
-    
-    // Esto imprimirá en la consola de GitHub Actions el JSON exacto para que lo inspeccionemos
     console.log("JSON RECIBIDO DE LA API:", JSON.stringify(jsonResponse, null, 2));
 
-    // Buscamos los partidos en cualquier nivel posible del JSON
-    let listaPartidos = [];
-    if (Array.isArray(jsonResponse)) {
-      listaPartidos = jsonResponse;
-    } else if (jsonResponse.data && Array.isArray(jsonResponse.data)) {
-      listaPartidos = jsonResponse.data;
-    } else if (jsonResponse.results && Array.isArray(jsonResponse.results)) {
-      listaPartidos = jsonResponse.results;
-    } else if (jsonResponse.matches && Array.isArray(jsonResponse.matches)) {
-      listaPartidos = jsonResponse.matches;
-    } else if (jsonResponse.response && Array.isArray(jsonResponse.response)) {
-      listaPartidos = jsonResponse.response;
-    }
+    // Extraemos la lista de partidos de la respuesta estructurada
+    const rawMatches = jsonResponse.data || jsonResponse.results || jsonResponse.matches || jsonResponse || [];
 
     const mapEscudo = (nombreRaw) => {
       const n = (nombreRaw || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
@@ -87,15 +75,17 @@ async function actualizarConApiOficial() {
     let partidosArray = [];
     let fechaActualTexto = "Fecha Actual";
 
+    const listaPartidos = Array.isArray(rawMatches) ? rawMatches : (rawMatches.data || []);
+
     if (listaPartidos.length > 0) {
       for (const match of listaPartidos) {
-        const localNombre = match.homeTeam?.name || match.home_team?.name || match.homeTeam || match.local || "";
-        const visitaNombre = match.awayTeam?.name || match.away_team?.name || match.awayTeam || match.visitante || "";
+        const localNombre = match.homeTeam?.name || match.home_team || match.local || "";
+        const visitaNombre = match.awayTeam?.name || match.away_team || match.visitante || "";
         const golesL = match.homeScore ?? match.home_score ?? match.goalsHome ?? 0;
         const golesV = match.awayScore ?? match.away_score ?? match.goalsAway ?? 0;
         
-        if (match.round || match.matchday) {
-          fechaActualTexto = match.round || match.matchday;
+        if (match.round) {
+          fechaActualTexto = match.round;
         }
 
         if (localNombre && visitaNombre) {
@@ -118,10 +108,10 @@ async function actualizarConApiOficial() {
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`Guardado completado. Se procesaron ${partidosArray.length} partidos.`);
+    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos de la Primera Nacional.`);
 
   } catch (error) {
-    console.error("Error en el script:", error.message);
+    console.error("Error crítico al procesar la API:", error.message);
     process.exit(1);
   }
 }
