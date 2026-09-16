@@ -1,14 +1,14 @@
 {
-  "fecha": "Fecha 78",
-  "actualizado": "2026-09-16T10:38:54.137Z",
+  "fecha": "Fecha 7",
+  "actualizado": "2026-09-16T10:49:00.920Z",
   "partidos": [
     {
-      "local": "Nueva Chicago",
-      "archivoLocal": "https://media.goal-api.com/badges/935_nueva-chicago.jpg",
-      "golesLocal": 0,
-      "visitante": "Temperley",
-      "archivoVisitante": "https://media.goal-api.com/badges/929_temperley.jpg",
-      "golesVisitante": 0
+      "local": "Defensores de Belgrano",
+      "archivoLocal": "https://media.goal-api.com/badges/942_defensores-de-belgrano.jpg",
+      "golesLocal": 1,
+      "visitante": "Atlético Rafaela",
+      "archivoVisitante": "https://media.goal-api.com/badges/941_atletico-rafaela.jpg",
+      "golesVisitante": 1
     }
   ]
 }
