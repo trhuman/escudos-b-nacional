@@ -4,11 +4,11 @@ async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
   const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
   
-  console.log("Consultando /results de la API oficial...");
+  console.log("Consultando /results de la API oficial para la temporada 2026...");
 
   try {
-    // Usamos el endpoint /results tal cual indica la documentación
-    const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/results`, {
+    // Agregamos ?season=2026 que era lo que le faltaba a la URL
+    const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/results?season=2026`, {
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
         "Accept": "application/json"
@@ -23,13 +23,13 @@ async function actualizarConApiOficial() {
     const listaPartidos = jsonResponse.data || [];
 
     if (listaPartidos.length === 0) {
-      throw new Error("La API no devolvió resultados.");
+      throw new Error("La API no devolvió resultados para esta temporada.");
     }
 
-    // Agrupamos los partidos por su fecha (campo "date": "YYYY-MM-DD")
+    // Agrupamos los partidos por su fecha (buscando tanto 'date' como 'matchDate')
     const partidosPorFecha = {};
     for (const match of listaPartidos) {
-      const fechaPartido = match.date;
+      const fechaPartido = (match.date || match.matchDate || "").split('T')[0];
       if (fechaPartido) {
         if (!partidosPorFecha[fechaPartido]) {
           partidosPorFecha[fechaPartido] = [];
@@ -38,7 +38,6 @@ async function actualizarConApiOficial() {
       }
     }
 
-    // Ordenamos las fechas alfabéticamente (YYYY-MM-DD se ordena perfecto como string)
     const fechasDisponibles = Object.keys(partidosPorFecha).sort();
 
     if (fechasDisponibles.length === 0) {
@@ -56,7 +55,7 @@ async function actualizarConApiOficial() {
       const localNombre = match.homeTeam?.name || "";
       const visitaNombre = match.awayTeam?.name || "";
       
-      // El score viene como string "3 - 2" según la documentación
+      // Parseamos el score formato "3 - 2" tal cual la documentación
       let golesL = 0;
       let golesV = 0;
       if (match.score && typeof match.score === 'string' && match.score.includes('-')) {
@@ -87,7 +86,7 @@ async function actualizarConApiOficial() {
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos correspondientes a la fecha ${ultimaFecha}.`);
+    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos de la fecha ${ultimaFecha}.`);
 
   } catch (error) {
     console.error("Error en el script:", error.message);
