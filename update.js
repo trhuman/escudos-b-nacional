@@ -2,6 +2,7 @@ const fs = require('fs');
 
 async function actualizarOficial() {
   console.log("Iniciando extracción real de la Primera Nacional...");
+  let fechaDetectada = "Fecha Actual"; // Declarada de forma segura al inicio
 
   try {
     const response = await fetch("https://www.promiedos.com.ar/league/primera-nacional/ebj", {
@@ -15,8 +16,7 @@ async function actualizarOficial() {
 
     const html = await response.text();
 
-    // 1. Extracción de la fecha activa real desde el selector de la liga
-    let fechaDetectada = "";
+    // 1. Extracción de la fecha activa real
     const matchSelect = html.match(/<select[^>]*id=["']fechas["'][^>]*>([\s\S]*?)<\/select>/i) || html.match(/<select[^>]*>([\s\S]*?)<\/select>/i);
     
     if (matchSelect) {
@@ -24,11 +24,11 @@ async function actualizarOficial() {
       if (optionSelected) {
         fechaDetectada = optionSelected[1].trim();
       }
-    }
-
-    if (!fechaDetecteda) {
+    } else {
       const matchTextoFecha = html.match(/(Fecha\s*\d+)/i);
-      fechaDetectada = matchTextoFecha ? matchTextoFecha[1] : "Fecha Actual";
+      if (matchTextoFecha) {
+        fechaDetectada = matchTextoFecha[1];
+      }
     }
 
     // 2. Mapeo exacto de nombres de equipos a tus archivos de escudos locales
@@ -81,7 +81,7 @@ async function actualizarOficial() {
       return "escudo_default.png";
     };
 
-    // 3. Extracción de partidos mediante análisis estricto de las filas de la tabla de la fuente
+    // 3. Extracción estricta de partidos de la tabla oficial
     let partidosArray = [];
     const filasPartidos = html.match(/<tr[^>]*>([\s\S]*?)<\/tr>/gi) || [];
 
@@ -94,7 +94,6 @@ async function actualizarOficial() {
         const golesVisitaMatch = fila.match(/class=["']golesvisita["'][^>]*>([^<]+)<\/td>/i) || fila.match(/class=["']gvisita["'][^>]*>([^<]+)/i);
 
         if (localMatch && visitaMatch) {
-          // Limpiar etiquetas HTML internas si las hubiera para obtener el texto plano del equipo
           const limpiarTexto = (raw) => raw.replace(/<[^>]*>/g, '').trim();
           
           const localNombre = limpiarTexto(localMatch[1]);
@@ -117,7 +116,6 @@ async function actualizarOficial() {
       }
     }
 
-    // SIN DATOS FALSOS: Si la estructura no arrojó partidos, arrojamos error explícito para detectarlo de inmediato
     if (partidosArray.length === 0) {
       throw new Error("No se pudieron parsear los partidos de la fuente oficial. La estructura HTML puede haber cambiado.");
     }
