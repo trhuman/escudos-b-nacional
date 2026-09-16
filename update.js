@@ -1,39 +1,28 @@
 const fs = require('fs');
 
-async function actualizarDinamico() {
-  console.log("Iniciando extracción dinámica de Promiedos...");
+async function actualizarConApiOficial() {
+  const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
+  console.log("Consultando la API oficial de partidos...");
 
   try {
-    const response = await fetch("https://www.promiedos.com.ar/league/primera-nacional/ebj", {
+    // Petición a la API oficial con autenticación Bearer
+    const response = await fetch("https://api.goal-api.com/v1/fixtures", {
       headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
+        "Authorization": `Bearer ${API_KEY}`,
+        "Accept": "application/json"
       }
     });
 
-    if (!response.ok) throw new Error(`Error al conectar con la fuente: ${response.status}`);
-
-    const html = await response.text();
-
-    // 1. Extracción dinámica de la fecha activa desde el selector o encabezado de la página
-    let fechaDetectada = "Fecha Actual";
-    const matchSelect = html.match(/<select[^>]*id=["']fechas["'][^>]*>([\s\S]*?)<\/select>/i) || html.match(/<select[^>]*>([\s\S]*?)<\/select>/i);
-    
-    if (matchSelect) {
-      const optionSelected = matchSelect[1].match(/<option[^>]*selected[^>]*>([^<]+)<\/option>/i);
-      if (optionSelected) {
-        fechaDetectada = optionSelected[1].trim();
-      }
-    } else {
-      const matchTextoFecha = html.match(/(FECHA\s*\d+)/i) || html.match(/(Fecha\s*\d+)/i);
-      if (matchTextoFecha) {
-        fechaDetectada = matchTextoFecha[1].trim();
-      }
+    if (!response.ok) {
+      throw new Error(`Error en la API oficial: ${response.status} ${response.statusText}`);
     }
 
-    // 2. Mapeo exacto de nombres de equipos a tus archivos de escudos locales
+    const jsonResponse = await response.json();
+    const rawFixtures = jsonResponse.data || jsonResponse.fixtures || jsonResponse || [];
+
+    // Diccionario de mapeo de escudos locales basado en el nombre del equipo
     const mapEscudo = (nombreRaw) => {
-      const n = nombreRaw.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+      const n = (nombreRaw || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
       if (n.includes("agropecuario")) return "agropecuario.png";
       if (n.includes("all boys")) return "all_boys.png";
       if (n.includes("almagro")) return "almagro.png";
@@ -57,7 +46,7 @@ async function actualizarDinamico() {
       if (n.includes("ferro")) return "ferro.png";
       if (n.includes("midland")) return "midland.png";
       if (n.includes("gimnasia") && n.includes("jujuy")) return "gimnasia_jujuy.png";
-      if (n.includes("gimnasia") && n.includes("mendoza")) return "gimnasia_mendoza.png";
+      if (n.includes("gimnasia") && n.includes("mendoza")) return "gimnasia_jujuy.png";
       if (n.includes("gimnasia y tiro")) return "gimnasia_y_tiro.png";
       if (n.includes("godoy cruz")) return "godoy_cruz.png";
       if (n.includes("guemes")) return "guemes.png";
@@ -81,58 +70,45 @@ async function actualizarDinamico() {
       return "escudo_default.png";
     };
 
-    // 3. Extracción dinámica de partidos analizando las filas de la tabla de la jornada
     let partidosArray = [];
-    const filasPartidos = html.match(/<tr[^>]*>([\s\S]*?)<\/tr>/gi) || [];
+    let fechaActualTexto = "Fecha Actual";
 
-    for (const fila of filasPartidos) {
-      if (fila.includes('tlocal') && fila.includes('tvisita')) {
-        const localMatch = fila.match(/class=["']tlocal["'][^>]*>([\s\S]*?)<\/div>/i) || fila.match(/class=["']tlocal["'][^>]*>([^<]+)/i);
-        const visitaMatch = fila.match(/class=["']tvisita["'][^>]*>([\s\S]*?)<\/div>/i) || fila.match(/class=["']tvisita["'][^>]*>([^<]+)/i);
+    // Procesamos la lista de partidos que devuelve la API de forma estructurada
+    if (Array.isArray(rawFixtures) && rawFixtures.length > 0) {
+      for (const match of rawFixtures) {
+        const localNombre = match.homeTeam?.name || match.home_team || "Local";
+        const visitaNombre = match.awayTeam?.name || match.away_team || "Visitante";
+        const golesL = match.homeScore ?? match.home_score ?? 0;
+        const golesV = match.awayScore ?? match.away_score ?? 0;
         
-        const golesLocalMatch = fila.match(/class=["']goleslocal["'][^>]*>([^<]+)<\/td>/i) || fila.match(/class=["']glocal["'][^>]*>([^<]+)/i);
-        const golesVisitaMatch = fila.match(/class=["']golesvisita["'][^>]*>([^<]+)<\/td>/i) || fila.match(/class=["']gvisita["'][^>]*>([^<]+)/i);
-
-        if (localMatch && visitaMatch) {
-          const limpiarTexto = (raw) => raw.replace(/<[^>]*>/g, '').trim();
-          
-          const localNombre = limpiarTexto(localMatch[1]);
-          const visitaNombre = limpiarTexto(visitaMatch[1]);
-          
-          const golesL = golesLocalMatch ? parseInt(golesLocalMatch[1].trim()) || 0 : 0;
-          const golesV = golesVisitaMatch ? parseInt(golesVisitaMatch[1].trim()) || 0 : 0;
-
-          if (localNombre && visitaNombre) {
-            partidosArray.push({
-              local: localNombre,
-              archivoLocal: mapEscudo(localNombre),
-              golesLocal: golesL,
-              visitante: visitaNombre,
-              archivoVisitante: mapEscudo(visitaNombre),
-              golesVisitante: golesV
-            });
-          }
+        if (match.round) {
+          fechaActualTexto = match.round;
         }
+
+        partidosArray.push({
+          local: localNombre,
+          archivoLocal: mapEscudo(localNombre),
+          golesLocal: Number(golesL),
+          visitante: visitaNombre,
+          archivoVisitante: mapEscudo(visitaNombre),
+          golesVisitante: Number(golesV)
+        });
       }
     }
 
-    if (partidosArray.length === 0) {
-      throw new Error("No se pudieron extraer los partidos de manera dinámica. La estructura de la fuente requiere ajuste.");
-    }
-
     const resultadoFinal = {
-      fecha: fechaDetectada,
+      fecha: fechaActualTexto,
       actualizado: new Date().toISOString(),
       partidos: partidosArray
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Éxito! Se actualizaron dinámicamente ${partidosArray.length} partidos para la ${fechaDetectada}.`);
+    console.log(`¡Sincronización API exitosa! Se guardaron ${partidosArray.length} partidos.`);
 
   } catch (error) {
-    console.error("Error crítico en la extracción dinámica:", error.message);
+    console.error("Error crítico al procesar la API:", error.message);
     process.exit(1);
   }
 }
 
-actualizarDinamico();
+actualizarConApiOficial();
