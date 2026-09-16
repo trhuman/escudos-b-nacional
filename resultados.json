@@ -1,5 +1,22 @@
 {
-  "fecha": "Cargando...",
-  "actualizado": "2026-09-16T00:00:00.000Z",
-  "partidos": []
+  "fecha": "Fecha Actual",
+  "actualizado": "2026-09-16T06:35:24.197Z",
+  "partidos": [
+    {
+      "local": "Gimnasia y Tiro",
+      "archivoLocal": "gimnasia_y_tiro.png",
+      "golesLocal": 0,
+      "visitante": "Tristán Suárez",
+      "archivoVisitante": "tristan_suarez.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Atlanta",
+      "archivoLocal": "atlanta.png",
+      "golesLocal": 1,
+      "visitante": "Güemes",
+      "archivoVisitante": "guemes.png",
+      "golesVisitante": 1
+    }
+  ]
 }
