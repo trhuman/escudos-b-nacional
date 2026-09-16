@@ -1,14 +1,78 @@
 {
-  "fecha": "Fecha 7",
-  "actualizado": "2026-09-16T11:00:27.511Z",
+  "fecha": "Fecha 24",
+  "actualizado": "2026-09-16T11:07:58.168Z",
   "partidos": [
     {
-      "local": "Defensores de Belgrano",
-      "archivoLocal": "https://media.goal-api.com/badges/942_defensores-de-belgrano.jpg",
-      "golesLocal": 1,
-      "visitante": "Atlético Rafaela",
-      "archivoVisitante": "https://media.goal-api.com/badges/941_atletico-rafaela.jpg",
+      "local": "Chaco",
+      "archivoLocal": "chaco_for_ever.png",
+      "golesLocal": 2,
+      "visitante": "Almirante",
+      "archivoVisitante": "almirante_brown.png",
       "golesVisitante": 1
+    },
+    {
+      "local": "Estudiantes RC",
+      "archivoLocal": "estudiantes_ba.png",
+      "golesLocal": 0,
+      "visitante": "Nueva Chicago",
+      "archivoVisitante": "nueva_chicago.png",
+      "golesVisitante": 1
+    },
+    {
+      "local": "Colón",
+      "archivoLocal": "colon.png",
+      "golesLocal": 0,
+      "visitante": "Gim Mendoza",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 2
+    },
+    {
+      "local": "Mitre SdE",
+      "archivoLocal": "mitre_se.png",
+      "golesLocal": 0,
+      "visitante": "Central Norte",
+      "archivoVisitante": "central_norte.png",
+      "golesVisitante": 2
+    },
+    {
+      "local": "Def Unidos",
+      "archivoLocal": "defensores_unidos.png",
+      "golesLocal": 3,
+      "visitante": "Agropecuario",
+      "archivoVisitante": "agropecuario.png",
+      "golesVisitante": 2
+    },
+    {
+      "local": "Temperley",
+      "archivoLocal": "temperley.png",
+      "golesLocal": 1,
+      "visitante": "Gimn Jujuy",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Maipú",
+      "archivoLocal": "deportivo_maipu.png",
+      "golesLocal": 1,
+      "visitante": "Güemes",
+      "archivoVisitante": "guemes.png",
+      "golesVisitante": 1
+    },
+    {
+      "local": "Alvarado",
+      "archivoLocal": "alvarado.png",
+      "golesLocal": 3,
+      "visitante": "Ferro",
+      "archivoVisitante": "ferro.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Arsenal FC",
+      "archivoLocal": "arsenal.png",
+      "golesLocal": 5,
+      "visitante": "San Miguel",
+      "archivoVisitante": "san_miguel.png",
+      "golesVisitante": 2
     }
   ]
 }
