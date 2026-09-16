@@ -1,0 +1,29 @@
+name: Actualizar Resultados B Nacional 100% Autonomo
+
+on:
+  schedule:
+    - cron: '0 */3 * * *' # Corre solo cada 3 horas
+  workflow_dispatch: # Permite forzarlo manualmente desde GitHub
+
+jobs:
+  sincronizar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Clonar Repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Ejecutar Script de Actualización Autónoma
+        run: node update.js
+
+      - name: Guardar Cambios en GitHub Automáticamente
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🤖 Actualización automática de fecha y resultados en vivo [skip ci]"
+          branch: main
