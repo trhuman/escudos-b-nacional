@@ -1,15 +1,14 @@
-name: Actualizar Resultados B Nacional 100% Autonomo
+name: Sincronizar API Primera Nacional
 
 on:
+  workflow_dispatch: # Te permite ejecutarlo a mano cuando quieras probar
   schedule:
-    - cron: '0 */3 * * *' # Corre solo cada 3 horas
-  workflow_dispatch: # Permite forzarlo manualmente desde GitHub
+    - cron: '0 11 * * *'  # 08:00 hora de Argentina (UTC-3 se expresa como UTC 11:00)
+    - cron: '0 15 * * *'  # 12:00 hora de Argentina (UTC 15:00)
 
 jobs:
   sincronizar:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Clonar Repositorio
         uses: actions/checkout@v4
@@ -17,13 +16,13 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
-      - name: Ejecutar Script de Actualización Autónoma
+      - name: Ejecutar Script de Actualización
         run: node update.js
 
       - name: Guardar Cambios en GitHub Automáticamente
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "🤖 Actualización automática de fecha y resultados en vivo [skip ci]"
-          branch: main
+          commit_message: "Actualización automática de resultados vía API oficial"
+          file_pattern: "resultados.json"
