@@ -1,94 +1,78 @@
 {
-  "fecha": "Fecha 29",
-  "actualizado": "2026-09-16T09:06:22.704Z",
+  "fecha": "Fecha 24",
+  "actualizado": "2026-09-16T09:18:47.319Z",
   "partidos": [
     {
-      "local": "Def. de Belgrano",
-      "archivoLocal": "https://media.goal-api.com/badges/942_defensores-de-belgrano.jpg",
+      "local": "Chaco",
+      "archivoLocal": "https://media.goal-api.com/badges/886_chaco-for-ever.jpg",
       "golesLocal": 2,
-      "visitante": "Deportivo Madryn",
-      "archivoVisitante": "https://media.goal-api.com/badges/897_deportivo-madryn.jpg",
+      "visitante": "Almirante",
+      "archivoVisitante": "https://media.goal-api.com/badges/930_almirante-brown.jpg",
       "golesVisitante": 1
     },
     {
-      "local": "San Martin T.",
-      "archivoLocal": "https://media.goal-api.com/badges/933_san-martin-tucuman.jpg",
-      "golesLocal": 3,
-      "visitante": "Agropecuario",
-      "archivoVisitante": "https://media.goal-api.com/badges/937_agropecuario.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Godoy Cruz",
-      "archivoLocal": "https://media.goal-api.com/badges/994_godoy-cruz.jpg",
-      "golesLocal": 2,
-      "visitante": "Colon Santa Fe",
-      "archivoVisitante": "https://media.goal-api.com/badges/988_colon.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Midland",
-      "archivoLocal": "https://media.goal-api.com/badges/971_midland.jpg",
-      "golesLocal": 1,
-      "visitante": "Chacarita Juniors",
-      "archivoVisitante": "https://media.goal-api.com/badges/938_chacarita-juniors.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "CA Mitre",
-      "archivoLocal": "https://media.goal-api.com/badges/926_mitre-santiago-d.-estero.jpg",
+      "local": "Estudiantes RC",
+      "archivoLocal": "https://media.goal-api.com/badges/932_estudiantes-rio-cuarto.jpg",
       "golesLocal": 0,
-      "visitante": "Chaco For Ever",
-      "archivoVisitante": "https://media.goal-api.com/badges/886_chaco-for-ever.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Gimnasia Jujuy",
-      "archivoLocal": "https://media.goal-api.com/badges/949_gimnasia-jujuy.jpg",
-      "golesLocal": 2,
-      "visitante": "Atl. Rafaela",
-      "archivoVisitante": "https://media.goal-api.com/badges/941_atletico-rafaela.jpg",
+      "visitante": "Nueva Chicago",
+      "archivoVisitante": "https://media.goal-api.com/badges/935_nueva-chicago.jpg",
       "golesVisitante": 1
     },
     {
-      "local": "Racing Cordoba",
-      "archivoLocal": "https://media.goal-api.com/badges/11585_racing-cordoba.jpg",
-      "golesLocal": 1,
-      "visitante": "Deportivo Moron",
-      "archivoVisitante": "https://media.goal-api.com/badges/951_deportivo-moron.jpg",
+      "local": "Colón",
+      "archivoLocal": "https://media.goal-api.com/badges/988_colon.jpg",
+      "golesLocal": 0,
+      "visitante": "Gim Mendoza",
+      "archivoVisitante": "https://media.goal-api.com/badges/925_gimnasia-mendoza.jpg",
       "golesVisitante": 2
     },
     {
-      "local": "Almirante Brown",
-      "archivoLocal": "https://media.goal-api.com/badges/930_almirante-brown.jpg",
+      "local": "Mitre SdE",
+      "archivoLocal": "https://media.goal-api.com/badges/926_mitre-santiago-d.-estero.jpg",
       "golesLocal": 0,
+      "visitante": "Central Norte",
+      "archivoVisitante": "https://media.goal-api.com/badges/885_central-norte.jpg",
+      "golesVisitante": 2
+    },
+    {
+      "local": "Def Unidos",
+      "archivoLocal": "https://media.goal-api.com/badges/913_defensores-unidos.jpg",
+      "golesLocal": 3,
+      "visitante": "Agropecuario",
+      "archivoVisitante": "https://media.goal-api.com/badges/937_agropecuario.jpg",
+      "golesVisitante": 2
+    },
+    {
+      "local": "Temperley",
+      "archivoLocal": "https://media.goal-api.com/badges/929_temperley.jpg",
+      "golesLocal": 1,
+      "visitante": "Gimn Jujuy",
+      "archivoVisitante": "https://media.goal-api.com/badges/949_gimnasia-jujuy.jpg",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Maipú",
+      "archivoLocal": "https://media.goal-api.com/badges/895_deportivo-maipu.jpg",
+      "golesLocal": 1,
+      "visitante": "Güemes",
+      "archivoVisitante": "https://media.goal-api.com/badges/884_guemes.jpg",
+      "golesVisitante": 1
+    },
+    {
+      "local": "Alvarado",
+      "archivoLocal": "https://media.goal-api.com/badges/936_alvarado.jpg",
+      "golesLocal": 3,
       "visitante": "Ferro",
       "archivoVisitante": "https://media.goal-api.com/badges/954_ferro-carril-oeste.jpg",
       "golesVisitante": 0
     },
     {
-      "local": "CA Estudiantes",
-      "archivoLocal": "https://media.goal-api.com/badges/934_estudiantes-caseros.jpg",
-      "golesLocal": 1,
-      "visitante": "Acassuso",
-      "archivoVisitante": "https://media.goal-api.com/badges/909_acassuso.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Patronato",
-      "archivoLocal": "https://media.goal-api.com/badges/1008_patronato.jpg",
-      "golesLocal": 0,
-      "visitante": "Temperley",
-      "archivoVisitante": "https://media.goal-api.com/badges/929_temperley.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Los Andes",
-      "archivoLocal": "https://media.goal-api.com/badges/919_los-andes.jpg",
-      "golesLocal": 1,
+      "local": "Arsenal FC",
+      "archivoLocal": "https://media.goal-api.com/badges/997_arsenal-fc.jpg",
+      "golesLocal": 5,
       "visitante": "San Miguel",
       "archivoVisitante": "https://media.goal-api.com/badges/921_san-miguel.jpg",
-      "golesVisitante": 1
+      "golesVisitante": 2
     }
   ]
 }
