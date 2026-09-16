@@ -4,7 +4,7 @@ async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
   const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
   
-  console.log("Consultando fixtures oficiales de la API...");
+  console.log("Consultando fixtures oficiales y analizando bloques de fechas...");
 
   try {
     const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026`, {
@@ -25,7 +25,7 @@ async function actualizarConApiOficial() {
       throw new Error("La API no devolvió partidos.");
     }
 
-    // 1. Filtramos estrictamente por la temporada 2026 y partidos finalizados
+    // 1. Filtramos estrictamente por la temporada 2026 y que estén finalizados
     const partidos2026Terminados = listaPartidos.filter(match => {
       const es2026 = (match.leagueYear === "2026" || (match.matchDate || "").startsWith("2026"));
       const estaTerminado = (match.matchStatus || "").toUpperCase() === "FINISHED";
@@ -36,7 +36,7 @@ async function actualizarConApiOficial() {
       throw new Error("No se encontraron partidos finalizados para el año 2026.");
     }
 
-    // 2. Agrupamos por el número de ronda real (matchRound)
+    // 2. Agrupamos por matchRound
     const rondasMap = {};
     for (const match of partidos2026Terminados) {
       const roundNum = parseInt(match.matchRound, 10);
@@ -50,17 +50,42 @@ async function actualizarConApiOficial() {
 
     const numerosRondas = Object.keys(rondasMap)
       .map(num => parseInt(num, 10))
-      .sort((a, b) => a - b); // Ordenamos de la 1 en adelante
+      .sort((a, b) => a - b);
 
     if (numerosRondas.length === 0) {
-      throw new Error("No se pudieron agrupar las rondas mediante matchRound.");
+      throw new Error("No se pudieron agrupar las rondas.");
     }
 
-    // 3. Seleccionamos la ronda más alta (la última fecha jugada del torneo)
-    const ultimaRonda = numerosRondas[numerosRondas.length - 1];
-    const partidosDeLaFecha = rondasMap[ultimaRonda];
+    // 3. Buscamos la ronda más alta que tenga un bloque con sentido (por ejemplo, más de 2 partidos)
+    // Recorremos desde la ronda más alta hacia atrás hasta encontrar una fecha con volumen real de partidos
+    let rondaSeleccionada = null;
+    let partidosDeLaFecha = [];
 
-    console.log(`Última fecha detectada automáticamente: Fecha ${ultimaRonda} (${partidosDeLaFecha.length} partidos)`);
+    for (let i = numerosRondas.length - 1; i >= 0; i--) {
+      const r = numerosRondas[i];
+      const partidos = rondasMap[r];
+      
+      // Una fecha válida de la Primera Nacional tiene varios partidos (ej. al menos 4 o 5 como mínimo)
+      if (partidos && partidos.length >= 3) {
+        rondaSeleccionada = r;
+        partidosDeLaFecha = partidos;
+        break;
+      }
+    }
+
+    // Si por alguna razón ninguna cumple, tomamos la que tenga mayor cantidad de partidos en general
+    if (!rondaSeleccionada) {
+      let maxPartidos = -1;
+      for (const r of numerosRondas) {
+        if (rondasMap[r].length > maxPartidos) {
+          maxPartidos = rondasMap[r].length;
+          rondaSeleccionada = r;
+          partidosDeLaFecha = rondasMap[r];
+        }
+      }
+    }
+
+    console.log(`Fecha seleccionada inteligentemente: Fecha ${rondaSeleccionada} (${partidosDeLaFecha.length} partidos)`);
 
     let partidosArray = [];
 
@@ -68,7 +93,6 @@ async function actualizarConApiOficial() {
       const localNombre = match.homeTeam?.name || match.homeTeamName || "";
       const visitaNombre = match.awayTeam?.name || match.awayTeamName || "";
       
-      // Extraemos los goles de los campos numéricos directos que trae la API
       const golesL = parseInt(match.homeTeamScore, 10) || 0;
       const golesV = parseInt(match.awayTeamScore, 10) || 0;
 
@@ -88,13 +112,13 @@ async function actualizarConApiOficial() {
     }
 
     const resultadoFinal = {
-      fecha: `Fecha ${ultimaRonda}`,
+      fecha: `Fecha ${rondaSeleccionada}`,
       actualizado: new Date().toISOString(),
       partidos: partidosArray
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Éxito total! Se guardaron ${partidosArray.length} partidos correspondientes a la Fecha ${ultimaRonda} en resultados.json.`);
+    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos correspondientes a la Fecha ${rondaSeleccionada}.`);
 
   } catch (error) {
     console.error("Error en el script:", error.message);
