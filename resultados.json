@@ -1,5 +1,406 @@
 {
   "fecha": "Fecha Actual",
-  "actualizado": "2026-09-16T08:07:51.794Z",
-  "partidos": []
+  "actualizado": "2026-09-16T08:11:16.187Z",
+  "partidos": [
+    {
+      "local": "Nueva Chicago",
+      "archivoLocal": "nueva_chicago.png",
+      "golesLocal": 0,
+      "visitante": "Patronato",
+      "archivoVisitante": "patronato.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Tristán Suárez",
+      "archivoLocal": "tristan_suarez.png",
+      "golesLocal": 0,
+      "visitante": "Atlanta",
+      "archivoVisitante": "atlanta.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "San Martín San Juan",
+      "archivoLocal": "san_martin_sj.png",
+      "golesLocal": 0,
+      "visitante": "Colegiales",
+      "archivoVisitante": "colegiales.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Güemes",
+      "archivoLocal": "guemes.png",
+      "golesLocal": 0,
+      "visitante": "Midland",
+      "archivoVisitante": "midland.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Chaco For Ever",
+      "archivoLocal": "chaco_for_ever.png",
+      "golesLocal": 0,
+      "visitante": "Almirante Brown",
+      "archivoVisitante": "almirante_brown.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Central Norte",
+      "archivoLocal": "central_norte.png",
+      "golesLocal": 0,
+      "visitante": "Defensores de Belgrano",
+      "archivoVisitante": "defensores_belgrano.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Colón",
+      "archivoLocal": "colon.png",
+      "golesLocal": 0,
+      "visitante": "Los Andes",
+      "archivoVisitante": "los_andes.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Deportivo Maipú",
+      "archivoLocal": "deportivo_maipu.png",
+      "golesLocal": 0,
+      "visitante": "Gimnasia Jujuy",
+      "archivoVisitante": "gimnasia_jujuy.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Deportivo Madryn",
+      "archivoLocal": "deportivo_madryn.png",
+      "golesLocal": 0,
+      "visitante": "Racing Córdoba",
+      "archivoVisitante": "racing_cba.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Agropecuario",
+      "archivoLocal": "agropecuario.png",
+      "golesLocal": 0,
+      "visitante": "Gimnasia y Tiro",
+      "archivoVisitante": "gimnasia_y_tiro.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Deportivo Morón",
+      "archivoLocal": "deportivo_moron.png",
+      "golesLocal": 0,
+      "visitante": "Godoy Cruz",
+      "archivoVisitante": "godoy_cruz.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Chacarita Juniors",
+      "archivoLocal": "chacarita.png",
+      "golesLocal": 0,
+      "visitante": "Quilmes",
+      "archivoVisitante": "quilmes.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Temperley",
+      "archivoLocal": "temperley.png",
+      "golesLocal": 0,
+      "visitante": "Almagro",
+      "archivoVisitante": "almagro.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Atlético Rafaela",
+      "archivoLocal": "atletico_rafaela.png",
+      "golesLocal": 0,
+      "visitante": "San Martín Tucumán",
+      "archivoVisitante": "san_martin_t.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Ferro Carril Oeste",
+      "archivoLocal": "ferro.png",
+      "golesLocal": 0,
+      "visitante": "Ciudad de Bolívar",
+      "archivoVisitante": "ciudad_bolivar.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "San Miguel",
+      "archivoLocal": "san_miguel.png",
+      "golesLocal": 0,
+      "visitante": "All Boys",
+      "archivoVisitante": "all_boys.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "San Telmo",
+      "archivoLocal": "san_telmo.png",
+      "golesLocal": 0,
+      "visitante": "Estudiantes Caseros",
+      "archivoVisitante": "estudiantes_ba.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Acassuso",
+      "archivoLocal": "acassuso.png",
+      "golesLocal": 0,
+      "visitante": "Mitre Santiago d. Estero",
+      "archivoVisitante": "mitre_se.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Defensores de Belgrano",
+      "archivoLocal": "defensores_belgrano.png",
+      "golesLocal": 0,
+      "visitante": "Deportivo Madryn",
+      "archivoVisitante": "deportivo_madryn.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "San Martín Tucumán",
+      "archivoLocal": "san_martin_t.png",
+      "golesLocal": 0,
+      "visitante": "Agropecuario",
+      "archivoVisitante": "agropecuario.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Godoy Cruz",
+      "archivoLocal": "godoy_cruz.png",
+      "golesLocal": 0,
+      "visitante": "Colón",
+      "archivoVisitante": "colon.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Midland",
+      "archivoLocal": "midland.png",
+      "golesLocal": 0,
+      "visitante": "Chacarita Juniors",
+      "archivoVisitante": "chacarita.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Mitre Santiago d. Estero",
+      "archivoLocal": "mitre_se.png",
+      "golesLocal": 0,
+      "visitante": "Chaco For Ever",
+      "archivoVisitante": "chaco_for_ever.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Gimnasia Jujuy",
+      "archivoLocal": "gimnasia_jujuy.png",
+      "golesLocal": 0,
+      "visitante": "Atlético Rafaela",
+      "archivoVisitante": "atletico_rafaela.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Racing Córdoba",
+      "archivoLocal": "racing_cba.png",
+      "golesLocal": 0,
+      "visitante": "Deportivo Morón",
+      "archivoVisitante": "deportivo_moron.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Almirante Brown",
+      "archivoLocal": "almirante_brown.png",
+      "golesLocal": 0,
+      "visitante": "Ferro Carril Oeste",
+      "archivoVisitante": "ferro.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Estudiantes Caseros",
+      "archivoLocal": "estudiantes_ba.png",
+      "golesLocal": 0,
+      "visitante": "Acassuso",
+      "archivoVisitante": "acassuso.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Patronato",
+      "archivoLocal": "patronato.png",
+      "golesLocal": 0,
+      "visitante": "Temperley",
+      "archivoVisitante": "temperley.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Los Andes",
+      "archivoLocal": "los_andes.png",
+      "golesLocal": 0,
+      "visitante": "San Miguel",
+      "archivoVisitante": "san_miguel.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Defensores de Belgrano",
+      "archivoLocal": "defensores_belgrano.png",
+      "golesLocal": 0,
+      "visitante": "Atlético Rafaela",
+      "archivoVisitante": "atletico_rafaela.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Quilmes",
+      "archivoLocal": "quilmes.png",
+      "golesLocal": 0,
+      "visitante": "Alvarado",
+      "archivoVisitante": "alvarado.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Deportivo Morón",
+      "archivoLocal": "deportivo_moron.png",
+      "golesLocal": 0,
+      "visitante": "Gimnasia Mendoza",
+      "archivoVisitante": "gimnasia_mendoza.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Chaco For Ever",
+      "archivoLocal": "chaco_for_ever.png",
+      "golesLocal": 0,
+      "visitante": "Almirante Brown",
+      "archivoVisitante": "almirante_brown.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Estudiantes Río Cuarto",
+      "archivoLocal": "estudiantes_ba.png",
+      "golesLocal": 0,
+      "visitante": "Nueva Chicago",
+      "archivoVisitante": "nueva_chicago.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Colón",
+      "archivoLocal": "colon.png",
+      "golesLocal": 0,
+      "visitante": "Gimnasia Mendoza",
+      "archivoVisitante": "gimnasia_mendoza.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Mitre Santiago d. Estero",
+      "archivoLocal": "mitre_se.png",
+      "golesLocal": 0,
+      "visitante": "Central Norte",
+      "archivoVisitante": "central_norte.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Defensores Unidos",
+      "archivoLocal": "defensores_belgrano.png",
+      "golesLocal": 0,
+      "visitante": "Agropecuario",
+      "archivoVisitante": "agropecuario.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Temperley",
+      "archivoLocal": "temperley.png",
+      "golesLocal": 0,
+      "visitante": "Gimnasia Jujuy",
+      "archivoVisitante": "gimnasia_jujuy.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Deportivo Maipú",
+      "archivoLocal": "deportivo_maipu.png",
+      "golesLocal": 0,
+      "visitante": "Güemes",
+      "archivoVisitante": "guemes.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Alvarado",
+      "archivoLocal": "alvarado.png",
+      "golesLocal": 0,
+      "visitante": "Ferro Carril Oeste",
+      "archivoVisitante": "ferro.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Arsenal FC",
+      "archivoLocal": "arsenal.png",
+      "golesLocal": 0,
+      "visitante": "San Miguel",
+      "archivoVisitante": "san_miguel.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Estudiantes Caseros",
+      "archivoLocal": "estudiantes_ba.png",
+      "golesLocal": 0,
+      "visitante": "Gimnasia Jujuy",
+      "archivoVisitante": "gimnasia_jujuy.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Defensores Unidos",
+      "archivoLocal": "defensores_belgrano.png",
+      "golesLocal": 0,
+      "visitante": "Gimnasia Mendoza",
+      "archivoVisitante": "gimnasia_mendoza.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Temperley",
+      "archivoLocal": "temperley.png",
+      "golesLocal": 0,
+      "visitante": "Central Norte",
+      "archivoVisitante": "central_norte.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Deportivo Morón",
+      "archivoLocal": "deportivo_moron.png",
+      "golesLocal": 0,
+      "visitante": "Agropecuario",
+      "archivoVisitante": "agropecuario.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Colegiales",
+      "archivoLocal": "colegiales.png",
+      "golesLocal": 0,
+      "visitante": "Atlanta",
+      "archivoVisitante": "atlanta.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Tristán Suárez",
+      "archivoLocal": "tristan_suarez.png",
+      "golesLocal": 0,
+      "visitante": "Güemes",
+      "archivoVisitante": "guemes.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Talleres Remedios",
+      "archivoLocal": "talleres_re.png",
+      "golesLocal": 0,
+      "visitante": "San Telmo",
+      "archivoVisitante": "san_telmo.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "All Boys",
+      "archivoLocal": "all_boys.png",
+      "golesLocal": 0,
+      "visitante": "Quilmes",
+      "archivoVisitante": "quilmes.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Gimnasia y Tiro",
+      "archivoLocal": "gimnasia_y_tiro.png",
+      "golesLocal": 0,
+      "visitante": "Patronato",
+      "archivoVisitante": "patronato.png",
+      "golesVisitante": 0
+    }
+  ]
 }
