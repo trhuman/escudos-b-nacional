@@ -4,7 +4,7 @@ async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
   const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
   
-  console.log("Iniciando sincronización con la estructura oficial de la API...");
+  console.log("Conectando con la API y procesando fixtures por ID de fecha...");
 
   try {
     const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026`, {
@@ -25,50 +25,44 @@ async function actualizarConApiOficial() {
       throw new Error("La API no devolvió partidos.");
     }
 
-    // 1. Filtramos estrictamente los partidos que ya terminaron (status: "FINISHED")
-    const partidosFinalizados = listaPartidos.filter(match => {
-      const estado = (match.status || "").toUpperCase();
-      return estado === "FINISHED" && match.score;
+    // Mapeamos los partidos extrayendo el número de ID (ej. "f29" -> 29) para ordenar correctamente
+    const partidosConIdNumerico = listaPartidos.map(match => {
+      const matchId = match.id || "";
+      const matchNum = matchId.match(/\d+/); // Extrae cualquier número dentro del id (ej: f29 -> 29)
+      return {
+        ...match,
+        idNumerico: matchNum ? parseInt(matchNum[0], 10) : 0
+      };
     });
 
-    if (partidosFinalizados.length === 0) {
-      throw new Error("No se encontraron partidos finalizados en la API.");
+    // Ordenamos por el número de ID de menor a mayor
+    partidosConIdNumerico.sort((a, b) => a.idNumerico - b.idNumerico);
+
+    // Identificamos el ID numérico más alto para saber cuál es la última fecha/bloque
+    const maxId = Math.max(...partidosConIdNumerico.map(p => p.idNumerico));
+    
+    // Si encontramos IDs numéricos, agrupamos los últimos partidos (bloque de la última fecha, ej. últimos 10 partidos)
+    let partidosDeLaJornada = [];
+    if (maxId > 0) {
+      // Tomamos los partidos que correspondan al bloque final o los últimos 10 partidos ordenados
+      partidosDeLaJornada = partidosConIdNumerico.slice(-10);
+    } else {
+      // Fallback por si acaso: los últimos 10 del array general
+      partidosDeLaJornada = listaPartidos.slice(-10);
     }
 
-    // 2. Agrupamos los partidos por su fecha (campo "date": "YYYY-MM-DD")
-    const partidosPorFecha = {};
-    for (const match of partidosFinalizados) {
-      const fechaPartido = (match.date || "").split('T')[0];
-      if (fechaPartido) {
-        if (!partidosPorFecha[fechaPartido]) {
-          partidosPorFecha[fechaPartido] = [];
-        }
-        partidosPorFecha[fechaPartido].push(match);
-      }
-    }
-
-    const fechasDisponibles = Object.keys(partidosPorFecha).sort();
-    if (fechasDisponibles.length === 0) {
-      throw new Error("No se pudieron agrupar las fechas de los partidos.");
-    }
-
-    // 3. Tomamos la fecha más reciente que tenga partidos finalizados
-    const ultimaFechaJugada = fechasDisponibles[fechasDisponibles.length - 1];
-    const partidosDeLaJornada = partidosPorFecha[ultimaFechaJugada];
-
-    console.log(`Última fecha detectada (${ultimaFechaJugada}): ${partidosDeLaJornada.length} partidos encontrados.`);
+    console.log(`Procesando ${partidosDeLaJornada.length} partidos correspondientes al bloque más reciente.`);
 
     let partidosArray = [];
 
     for (const match of partidosDeLaJornada) {
-      // Extracción directa según la documentación oficial
       const localNombre = match.homeTeam?.name || "";
       const visitaNombre = match.awayTeam?.name || "";
       
       let golesL = 0;
       let golesV = 0;
 
-      // Parseo del score string (ej: "2 - 1")
+      // Parseo seguro del score (ej: "2 - 1")
       if (match.score && typeof match.score === 'string' && match.score.includes('-')) {
         const partes = match.score.split('-');
         golesL = parseInt(partes[0].trim(), 10) || 0;
@@ -91,16 +85,16 @@ async function actualizarConApiOficial() {
     }
 
     const resultadoFinal = {
-      fecha: `Fecha del ${ultimaFechaJugada}`,
+      fecha: `Última Fecha Actualizada`,
       actualizado: new Date().toISOString(),
       partidos: partidosArray
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos correspondientes al ${ultimaFechaJugada}.`);
+    console.log(`¡Éxito total! Se guardaron ${partidosArray.length} partidos en resultados.json.`);
 
   } catch (error) {
-    console.error("Error en el script:", error.message);
+    console.error("Error crítico en el script:", error.message);
     process.exit(1);
   }
 }
