@@ -1,6 +1,6 @@
 {
   "fecha": "Fecha Actual",
-  "actualizado": "2026-09-16T06:35:24.197Z",
+  "actualizado": "2026-09-16T06:38:50.969Z",
   "partidos": [
     {
       "local": "Gimnasia y Tiro",
@@ -17,6 +17,38 @@
       "visitante": "Güemes",
       "archivoVisitante": "guemes.png",
       "golesVisitante": 1
+    },
+    {
+      "local": "Colón",
+      "archivoLocal": "colon.png",
+      "golesLocal": 0,
+      "visitante": "Chacarita",
+      "archivoVisitante": "chacarita.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "San Martín (T)",
+      "archivoLocal": "san_martin_t.png",
+      "golesLocal": 0,
+      "visitante": "San Martín (SJ)",
+      "archivoVisitante": "san_martin_t.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Quilmes",
+      "archivoLocal": "quilmes.png",
+      "golesLocal": 0,
+      "visitante": "All Boys",
+      "archivoVisitante": "all_boys.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Agropecuario",
+      "archivoLocal": "agropecuario.png",
+      "golesLocal": 0,
+      "visitante": "Ferro",
+      "archivoVisitante": "ferro.png",
+      "golesVisitante": 0
     }
   ]
 }
