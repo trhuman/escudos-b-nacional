@@ -1,77 +1,405 @@
 {
-  "fecha": "Fecha 29",
-  "actualizado": "2026-09-16T06:49:58.882Z",
+  "fecha": "Fecha Actual",
+  "actualizado": "2026-09-16T07:14:09.170Z",
   "partidos": [
     {
-      "local": "Colón",
-      "archivoLocal": "colon.png",
-      "golesLocal": 1,
-      "visitante": "San Telmo",
-      "archivoVisitante": "san_telmo.png",
-      "golesVisitante": 0
-    },
-    {
-      "local": "San Martín (T)",
-      "archivoLocal": "san_martin_t.png",
-      "golesLocal": 2,
-      "visitante": "Gimnasia (J)",
-      "archivoVisitante": "gimnasia_jujuy.png",
-      "golesVisitante": 1
-    },
-    {
-      "local": "Quilmes",
-      "archivoLocal": "quilmes.png",
+      "local": "Reading",
+      "archivoLocal": "escudo_default.png",
       "golesLocal": 0,
-      "visitante": "All Boys",
-      "archivoVisitante": "all_boys.png",
+      "visitante": "Doncaster Rovers",
+      "archivoVisitante": "escudo_default.png",
       "golesVisitante": 0
     },
     {
-      "local": "Agropecuario",
-      "archivoLocal": "agropecuario.png",
-      "golesLocal": 1,
-      "visitante": "Ferro",
-      "archivoVisitante": "ferro.png",
-      "golesVisitante": 1
-    },
-    {
-      "local": "San Martín (SJ)",
-      "archivoLocal": "san_martin_sj.png",
-      "golesLocal": 3,
-      "visitante": "Alvarado",
-      "archivoVisitante": "alvarado.png",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Tristán Suárez",
-      "archivoLocal": "tristan_suarez.png",
+      "local": "Oxford United",
+      "archivoLocal": "escudo_default.png",
       "golesLocal": 0,
-      "visitante": "Gimnasia y Tiro",
-      "archivoVisitante": "gimnasia_y_tiro.png",
+      "visitante": "Sheffield Wednesday",
+      "archivoVisitante": "escudo_default.png",
       "golesVisitante": 0
     },
     {
-      "local": "Atlanta",
-      "archivoLocal": "atlanta.png",
-      "golesLocal": 1,
-      "visitante": "Güemes",
-      "archivoVisitante": "guemes.png",
-      "golesVisitante": 1
-    },
-    {
-      "local": "Chacarita",
-      "archivoLocal": "chacarita.png",
-      "golesLocal": 2,
-      "visitante": "Arsenal",
-      "archivoVisitante": "arsenal.png",
-      "golesVisitante": 1
-    },
-    {
-      "local": "Patronato",
-      "archivoLocal": "patronato.png",
+      "local": "Tranmere Rovers",
+      "archivoLocal": "escudo_default.png",
       "golesLocal": 0,
-      "visitante": "Racing (C)",
-      "archivoVisitante": "racing_cba.png",
+      "visitante": "Salford City",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "York City",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Shrewsbury Town",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Oldham Athletic",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Bristol Rovers",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Barnsley",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Wycombe Wanderers",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Blackpool",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Luton Town",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Bradford City",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Milton Keynes Dons",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Burton Albion",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Wigan Athletic",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Grimsby Town",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Colchester United",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Newport County",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Walsall",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Cambridge United",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Leicester City",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Huddersfield Town",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Stevenage",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Leyton Orient",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Peterborough United",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Mansfield Town",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Stockport County",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Notts County",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "AFC Wimbledon",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Northampton Town",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Fleetwood Town",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Accrington Stanley",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Crewe Alexandra",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Plymouth Argyle",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Bromley",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Barnet",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Rotherham United",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Cheltenham Town",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Rochdale",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Chesterfield",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Exeter City",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Crawley Town",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Port Vale",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Gillingham",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Swindon Town",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Wycombe U21",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Derby County U21",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Manchester City U21",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Dinamo Zagreb U21",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Ironi Kiryat Shmona",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Maccabi Tel Aviv",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Maccabi Petah Tikva",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Hapoel Petah Tikva",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Hapoel Jerusalem",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Hapoel Haifa",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Ironi Tiberias",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Hapoel Ramat Gan",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Al Orobah",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Al Okhdood",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Al-Qadsiah",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "NEOM",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Al Riyadh",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Al Fayha",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Al Ula",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Al Ahli",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Al Taawoun",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Al Wehda",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Omonia Nicosia",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Pafos",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Krasava Odintsovo",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Nea Salamis",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Al Hilal FC",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Al Hazem",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Cardiff City U21",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Colchester United U21",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Al Jabalain",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Al Ittihad",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Al Nassr",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Al Kholood",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Karmiotissa",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "APOEL",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Aris Limassol",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Omonia 29is Maiou",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Apollon",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Omonia Aradippou",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "AEK Larnaca",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "AEL",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Olympiakos Nicosia",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Anorthosis",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Maccabi Tel Aviv",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Hapoel Tel Aviv",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Skopje",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Shkëndija Haraçinë",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Bregalnica Štip",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Sileks",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Vardar Skopje",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Bashkimi Kumanovo",
+      "archivoVisitante": "escudo_default.png",
       "golesVisitante": 0
     }
   ]
