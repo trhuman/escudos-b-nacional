@@ -4,7 +4,7 @@ async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
   const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
   
-  console.log("Consultando la Primera Nacional para extraer la última fecha con partidos jugados...");
+  console.log("Consultando la Primera Nacional para extraer la última fecha correcta...");
 
   try {
     const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026`, {
@@ -31,7 +31,6 @@ async function actualizarConApiOficial() {
     const rondasConPartidos = {};
     for (const match of listaPartidos) {
       const ronda = match.matchRound;
-      
       if (ronda) {
         if (!rondasConPartidos[ronda]) {
           rondasConPartidos[ronda] = [];
@@ -40,7 +39,7 @@ async function actualizarConApiOficial() {
       }
     }
 
-    // Identificamos las rondas numéricamente y las ordenamos de menor a mayor
+    // Identificamos las rondas numéricamente válidas y las ordenamos
     const numerosRondas = Object.keys(rondasConPartidos)
       .map(r => parseInt(r, 10))
       .filter(r => !isNaN(r))
@@ -50,28 +49,30 @@ async function actualizarConApiOficial() {
       throw new Error("No se encontraron números de ronda válidos en la API.");
     }
 
-    // 2. Buscamos de atrás hacia adelante (desde la última fecha hacia la primera) 
-    // la ronda más alta que tenga al menos un partido disputado (o cuya fecha ya pasó/es hoy)
-    let rondaSeleccionada = numerosRondas[0]; // fallback inicial
+    // 2. Buscamos de atrás hacia adelante la ronda más alta que tenga partidos jugados
+    let rondaSeleccionada = numerosRondas[numerosRondas.length - 1];
 
     for (let i = numerosRondas.length - 1; i >= 0; i--) {
       const r = numerosRondas[i];
       const partidosDeRonda = rondasConPartidos[r];
       
-      const tienePartidosJugados = partidosDeRonda.some(m => {
-        const f = m.matchDate || m.date;
-        const estado = m.matchStatus || m.status || "";
-        // Consideramos jugado si la fecha ya pasó/es hoy o el estado indica finalizado/en juego
-        return (f && f <= hoyStr) || estado === "done" || estado === "FT" || Number(m.homeTeamScore) > 0 || Number(m.awayTeamScore) > 0;
+      const algunPartidoJugado = partidosDeRonda.some(m => {
+        const rawDate = m.matchDate || m.date || "";
+        const f = rawDate.split('T')[0]; // Limpiamos la hora para comparar solo YYYY-MM-DD
+        const scoreL = m.homeTeamScore;
+        const scoreV = m.awayTeamScore;
+        
+        // Es válido si la fecha ya pasó/es hoy O si ya tiene goles registrados en la API
+        return (f && f <= hoyStr) || (scoreL !== null && scoreV !== null && (scoreL > 0 || scoreV > 0));
       });
 
-      if (tienePartidosJugados) {
+      if (algunPartidoJugado) {
         rondaSeleccionada = r;
         break;
       }
     }
 
-    console.log(`Ronda seleccionada correctamente (última jugada): Fecha ${rondaSeleccionada}`);
+    console.log(`Ronda seleccionada correctamente: Fecha ${rondaSeleccionada}`);
 
     const partidosDeLaFecha = rondasConPartidos[rondaSeleccionada] || [];
     let partidosArray = [];
@@ -82,7 +83,7 @@ async function actualizarConApiOficial() {
       const golesL = match.homeTeamScore ?? 0;
       const golesV = match.awayTeamScore ?? 0;
 
-      // Manejo de imágenes que ya te venía funcionando bien
+      // Manejo de escudos que ya tenías funcionando
       const escudoLocal = match.homeTeam?.badge || match.homeTeamBadge || "escudo_default.png";
       const escudoVisitante = match.awayTeam?.badge || match.awayTeamBadge || "escudo_default.png";
 
