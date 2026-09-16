@@ -2,11 +2,11 @@ const fs = require('fs');
 
 async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
-  console.log("Consultando la Primera Nacional (ID 1189) con temporada 2026...");
+  console.log("Consultando la Primera Nacional (ID cmr77dvtd009brx0629uk9lp3) con temporada 2026...");
 
   try {
     // Intentamos primero con los fixtures de la temporada 2026
-    let response = await fetch("https://api.goal-api.com/v1/leagues/1189/fixtures?season=2026", {
+    let response = await fetch("https://api.goal-api.com/v1/leagues/cmr77dvtd009brx0629uk9lp3/fixtures?season=2026", {
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
         "Accept": "application/json"
@@ -18,7 +18,7 @@ async function actualizarConApiOficial() {
     // Si los fixtures vienen vacíos, probamos con results
     if (!jsonResponse.data || jsonResponse.data.length === 0) {
       console.log("Fixtures vacíos, probando con /results?season=2026...");
-      const resResults = await fetch("https://api.goal-api.com/v1/leagues/1189/results?season=2026", {
+      const resResults = await fetch("https://api.goal-api.com/v1/leagues/cmr77dvtd009brx0629uk9lp3/results?season=2026", {
         headers: {
           "Authorization": `Bearer ${API_KEY}`,
           "Accept": "application/json"
