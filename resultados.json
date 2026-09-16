@@ -1,93 +1,93 @@
 {
   "fecha": "Fecha 29",
-  "actualizado": "2026-09-16T08:44:42.577Z",
+  "actualizado": "2026-09-16T08:59:21.237Z",
   "partidos": [
     {
       "local": "Def. de Belgrano",
-      "archivoLocal": "https://media.goal-api.com/badges/942_defensores-de-belgrano.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/escudo_default.png",
       "golesLocal": 2,
       "visitante": "Deportivo Madryn",
-      "archivoVisitante": "https://media.goal-api.com/badges/897_deportivo-madryn.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/deportivo_madryn.png",
       "golesVisitante": 1
     },
     {
       "local": "San Martin T.",
-      "archivoLocal": "https://media.goal-api.com/badges/933_san-martin-tucuman.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/san_martin_t.png",
       "golesLocal": 3,
       "visitante": "Agropecuario",
-      "archivoVisitante": "https://media.goal-api.com/badges/937_agropecuario.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/agropecuario.png",
       "golesVisitante": 0
     },
     {
       "local": "Godoy Cruz",
-      "archivoLocal": "https://media.goal-api.com/badges/994_godoy-cruz.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/godoy_cruz.png",
       "golesLocal": 2,
       "visitante": "Colon Santa Fe",
-      "archivoVisitante": "https://media.goal-api.com/badges/988_colon.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/colon.png",
       "golesVisitante": 0
     },
     {
       "local": "Midland",
-      "archivoLocal": "https://media.goal-api.com/badges/971_midland.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/midland.png",
       "golesLocal": 1,
       "visitante": "Chacarita Juniors",
-      "archivoVisitante": "https://media.goal-api.com/badges/938_chacarita-juniors.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/chacarita.png",
       "golesVisitante": 0
     },
     {
       "local": "CA Mitre",
-      "archivoLocal": "https://media.goal-api.com/badges/926_mitre-santiago-d.-estero.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/mitre_se.png",
       "golesLocal": 0,
       "visitante": "Chaco For Ever",
-      "archivoVisitante": "https://media.goal-api.com/badges/886_chaco-for-ever.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/chaco_for_ever.png",
       "golesVisitante": 0
     },
     {
       "local": "Gimnasia Jujuy",
-      "archivoLocal": "https://media.goal-api.com/badges/949_gimnasia-jujuy.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/gimnasia_jujuy.png",
       "golesLocal": 2,
       "visitante": "Atl. Rafaela",
-      "archivoVisitante": "https://media.goal-api.com/badges/941_atletico-rafaela.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/atletico_rafaela.png",
       "golesVisitante": 1
     },
     {
       "local": "Racing Cordoba",
-      "archivoLocal": "https://media.goal-api.com/badges/11585_racing-cordoba.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/racing_cba.png",
       "golesLocal": 1,
       "visitante": "Deportivo Moron",
-      "archivoVisitante": "https://media.goal-api.com/badges/951_deportivo-moron.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/deportivo_moron.png",
       "golesVisitante": 2
     },
     {
       "local": "Almirante Brown",
-      "archivoLocal": "https://media.goal-api.com/badges/930_almirante-brown.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/almirante_brown.png",
       "golesLocal": 0,
       "visitante": "Ferro",
-      "archivoVisitante": "https://media.goal-api.com/badges/954_ferro-carril-oeste.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/ferro.png",
       "golesVisitante": 0
     },
     {
       "local": "CA Estudiantes",
-      "archivoLocal": "https://media.goal-api.com/badges/934_estudiantes-caseros.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/estudiantes_ba.png",
       "golesLocal": 1,
       "visitante": "Acassuso",
-      "archivoVisitante": "https://media.goal-api.com/badges/909_acassuso.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/acassuso.png",
       "golesVisitante": 0
     },
     {
       "local": "Patronato",
-      "archivoLocal": "https://media.goal-api.com/badges/1008_patronato.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/patronato.png",
       "golesLocal": 0,
       "visitante": "Temperley",
-      "archivoVisitante": "https://media.goal-api.com/badges/929_temperley.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/temperley.png",
       "golesVisitante": 0
     },
     {
       "local": "Los Andes",
-      "archivoLocal": "https://media.goal-api.com/badges/919_los-andes.jpg",
+      "archivoLocal": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/los_andes.png",
       "golesLocal": 1,
       "visitante": "San Miguel",
-      "archivoVisitante": "https://media.goal-api.com/badges/921_san-miguel.jpg",
+      "archivoVisitante": "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/san_miguel.png",
       "golesVisitante": 1
     }
   ]
