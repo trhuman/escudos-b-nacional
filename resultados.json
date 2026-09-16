@@ -1,38 +1,22 @@
 {
-  "fecha": "Fecha Actual",
-  "actualizado": "2026-09-16T06:40:53.550Z",
+  "fecha": "Fecha 29",
+  "actualizado": "2026-09-16T06:49:58.882Z",
   "partidos": [
-    {
-      "local": "Gimnasia y Tiro",
-      "archivoLocal": "gimnasia_y_tiro.png",
-      "golesLocal": 0,
-      "visitante": "Tristán Suárez",
-      "archivoVisitante": "tristan_suarez.png",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Atlanta",
-      "archivoLocal": "atlanta.png",
-      "golesLocal": 1,
-      "visitante": "Güemes",
-      "archivoVisitante": "guemes.png",
-      "golesVisitante": 1
-    },
     {
       "local": "Colón",
       "archivoLocal": "colon.png",
-      "golesLocal": 0,
-      "visitante": "Chacarita",
-      "archivoVisitante": "chacarita.png",
+      "golesLocal": 1,
+      "visitante": "San Telmo",
+      "archivoVisitante": "san_telmo.png",
       "golesVisitante": 0
     },
     {
       "local": "San Martín (T)",
       "archivoLocal": "san_martin_t.png",
-      "golesLocal": 0,
-      "visitante": "San Martín (SJ)",
-      "archivoVisitante": "san_martin_t.png",
-      "golesVisitante": 0
+      "golesLocal": 2,
+      "visitante": "Gimnasia (J)",
+      "archivoVisitante": "gimnasia_jujuy.png",
+      "golesVisitante": 1
     },
     {
       "local": "Quilmes",
@@ -45,9 +29,49 @@
     {
       "local": "Agropecuario",
       "archivoLocal": "agropecuario.png",
-      "golesLocal": 0,
+      "golesLocal": 1,
       "visitante": "Ferro",
       "archivoVisitante": "ferro.png",
+      "golesVisitante": 1
+    },
+    {
+      "local": "San Martín (SJ)",
+      "archivoLocal": "san_martin_sj.png",
+      "golesLocal": 3,
+      "visitante": "Alvarado",
+      "archivoVisitante": "alvarado.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Tristán Suárez",
+      "archivoLocal": "tristan_suarez.png",
+      "golesLocal": 0,
+      "visitante": "Gimnasia y Tiro",
+      "archivoVisitante": "gimnasia_y_tiro.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Atlanta",
+      "archivoLocal": "atlanta.png",
+      "golesLocal": 1,
+      "visitante": "Güemes",
+      "archivoVisitante": "guemes.png",
+      "golesVisitante": 1
+    },
+    {
+      "local": "Chacarita",
+      "archivoLocal": "chacarita.png",
+      "golesLocal": 2,
+      "visitante": "Arsenal",
+      "archivoVisitante": "arsenal.png",
+      "golesVisitante": 1
+    },
+    {
+      "local": "Patronato",
+      "archivoLocal": "patronato.png",
+      "golesLocal": 0,
+      "visitante": "Racing (C)",
+      "archivoVisitante": "racing_cba.png",
       "golesVisitante": 0
     }
   ]
