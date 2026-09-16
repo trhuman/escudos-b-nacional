@@ -2,11 +2,11 @@ const fs = require('fs');
 
 async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
-  console.log("Consultando la API oficial de partidos...");
+  console.log("Consultando la Primera Nacional en la API oficial...");
 
   try {
-    // Petición a la API oficial con autenticación Bearer
-    const response = await fetch("https://api.goal-api.com/v1/fixtures", {
+    // Apuntamos al endpoint específico filtrando por la liga de Argentina Primera Nacional (ID 1189)
+    const response = await fetch("https://api.goal-api.com/v1/leagues/1189/fixtures", {
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
         "Accept": "application/json"
@@ -18,9 +18,11 @@ async function actualizarConApiOficial() {
     }
 
     const jsonResponse = await response.json();
-    const rawFixtures = jsonResponse.data || jsonResponse.fixtures || jsonResponse || [];
+    
+    // Extraemos la lista de partidos de la respuesta estructurada
+    const rawFixtures = jsonResponse.data || jsonResponse.fixtures || jsonResponse.matches || [];
 
-    // Diccionario de mapeo de escudos locales basado en el nombre del equipo
+    // Mapeo exacto de nombres de equipos a tus archivos de escudos locales
     const mapEscudo = (nombreRaw) => {
       const n = (nombreRaw || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
       if (n.includes("agropecuario")) return "agropecuario.png";
@@ -46,7 +48,7 @@ async function actualizarConApiOficial() {
       if (n.includes("ferro")) return "ferro.png";
       if (n.includes("midland")) return "midland.png";
       if (n.includes("gimnasia") && n.includes("jujuy")) return "gimnasia_jujuy.png";
-      if (n.includes("gimnasia") && n.includes("mendoza")) return "gimnasia_jujuy.png";
+      if (n.includes("gimnasia") && n.includes("mendoza")) return "gimnasia_mendoza.png";
       if (n.includes("gimnasia y tiro")) return "gimnasia_y_tiro.png";
       if (n.includes("godoy cruz")) return "godoy_cruz.png";
       if (n.includes("guemes")) return "guemes.png";
@@ -73,11 +75,11 @@ async function actualizarConApiOficial() {
     let partidosArray = [];
     let fechaActualTexto = "Fecha Actual";
 
-    // Procesamos la lista de partidos que devuelve la API de forma estructurada
     if (Array.isArray(rawFixtures) && rawFixtures.length > 0) {
+      // Tomamos la fecha activa o la última jornada disponible de los partidos devueltos
       for (const match of rawFixtures) {
-        const localNombre = match.homeTeam?.name || match.home_team || "Local";
-        const visitaNombre = match.awayTeam?.name || match.away_team || "Visitante";
+        const localNombre = match.homeTeam?.name || match.home_team || "";
+        const visitaNombre = match.awayTeam?.name || match.away_team || "";
         const golesL = match.homeScore ?? match.home_score ?? 0;
         const golesV = match.awayScore ?? match.away_score ?? 0;
         
@@ -85,14 +87,16 @@ async function actualizarConApiOficial() {
           fechaActualTexto = match.round;
         }
 
-        partidosArray.push({
-          local: localNombre,
-          archivoLocal: mapEscudo(localNombre),
-          golesLocal: Number(golesL),
-          visitante: visitaNombre,
-          archivoVisitante: mapEscudo(visitaNombre),
-          golesVisitante: Number(golesV)
-        });
+        if (localNombre && visitaNombre) {
+          partidosArray.push({
+            local: localNombre,
+            archivoLocal: mapEscudo(localNombre),
+            golesLocal: Number(golesL),
+            visitante: visitaNombre,
+            archivoVisitante: mapEscudo(visitaNombre),
+            golesVisitante: Number(golesV)
+          });
+        }
       }
     }
 
@@ -103,7 +107,7 @@ async function actualizarConApiOficial() {
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Sincronización API exitosa! Se guardaron ${partidosArray.length} partidos.`);
+    console.log(`¡Sincronización correcta! Se guardaron ${partidosArray.length} partidos de la Primera Nacional.`);
 
   } catch (error) {
     console.error("Error crítico al procesar la API:", error.message);
