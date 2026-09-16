@@ -1,6 +1,6 @@
 {
-  "fecha": "Última Fecha Actualizada",
-  "actualizado": "2026-09-16T10:37:05.486Z",
+  "fecha": "Fecha 78",
+  "actualizado": "2026-09-16T10:38:54.137Z",
   "partidos": [
     {
       "local": "Nueva Chicago",
@@ -8,78 +8,6 @@
       "golesLocal": 0,
       "visitante": "Temperley",
       "archivoVisitante": "https://media.goal-api.com/badges/929_temperley.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Deportivo Morón",
-      "archivoLocal": "https://media.goal-api.com/badges/951_deportivo-moron.jpg",
-      "golesLocal": 0,
-      "visitante": "Defensores Unidos",
-      "archivoVisitante": "https://media.goal-api.com/badges/913_defensores-unidos.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "San Miguel",
-      "archivoLocal": "https://media.goal-api.com/badges/921_san-miguel.jpg",
-      "golesLocal": 0,
-      "visitante": "Deportivo Madryn",
-      "archivoVisitante": "https://media.goal-api.com/badges/897_deportivo-madryn.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Almagro",
-      "archivoLocal": "https://media.goal-api.com/badges/955_almagro.jpg",
-      "golesLocal": 0,
-      "visitante": "Deportivo Maipú",
-      "archivoVisitante": "https://media.goal-api.com/badges/895_deportivo-maipu.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Colegiales",
-      "archivoLocal": "https://media.goal-api.com/badges/912_colegiales.jpg",
-      "golesLocal": 0,
-      "visitante": "Atlanta",
-      "archivoVisitante": "https://media.goal-api.com/badges/928_atlanta.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Deportivo Morón",
-      "archivoLocal": "https://media.goal-api.com/badges/951_deportivo-moron.jpg",
-      "golesLocal": 0,
-      "visitante": "Agropecuario",
-      "archivoVisitante": "https://media.goal-api.com/badges/937_agropecuario.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Quilmes",
-      "archivoLocal": "https://media.goal-api.com/badges/931_quilmes.jpg",
-      "golesLocal": 0,
-      "visitante": "Alvarado",
-      "archivoVisitante": "https://media.goal-api.com/badges/936_alvarado.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Defensores Unidos",
-      "archivoLocal": "https://media.goal-api.com/badges/913_defensores-unidos.jpg",
-      "golesLocal": 0,
-      "visitante": "Agropecuario",
-      "archivoVisitante": "https://media.goal-api.com/badges/937_agropecuario.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Temperley",
-      "archivoLocal": "https://media.goal-api.com/badges/929_temperley.jpg",
-      "golesLocal": 0,
-      "visitante": "Gimnasia Jujuy",
-      "archivoVisitante": "https://media.goal-api.com/badges/949_gimnasia-jujuy.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Alvarado",
-      "archivoLocal": "https://media.goal-api.com/badges/936_alvarado.jpg",
-      "golesLocal": 0,
-      "visitante": "Ferro Carril Oeste",
-      "archivoVisitante": "https://media.goal-api.com/badges/954_ferro-carril-oeste.jpg",
       "golesVisitante": 0
     }
   ]
