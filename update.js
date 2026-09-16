@@ -25,9 +25,7 @@ async function actualizarConApiOficial() {
       throw new Error("La API no devolvió partidos.");
     }
 
-    const hoyStr = new Date().toISOString().split('T')[0];
-
-    // 1. Buscamos todas las rondas que tengan al menos un partido cuya fecha ya pasó o es hoy
+    // 1. Buscamos todas las rondas disponibles en los partidos
     const rondasConPartidos = {};
     for (const match of listaPartidos) {
       const ronda = match.matchRound;
@@ -50,22 +48,8 @@ async function actualizarConApiOficial() {
       throw new Error("No se encontraron números de ronda válidos en la API.");
     }
 
-    // Buscamos la última ronda donde los partidos ya ocurrieron o están ocurriendo
-    let rondaSeleccionada = numerosRondas[numerosRondas.length - 1];
-
-    for (let i = numerosRondas.length - 1; i >= 0; i--) {
-      const r = numerosRondas[i];
-      const partidosDeRonda = rondasConPartidos[r];
-      const algunPartidoJugado = partidosDeRonda.some(m => {
-        const f = m.matchDate || m.date;
-        return f && f <= hoyStr;
-      });
-
-      if (algunPartidoJugado) {
-        rondaSeleccionada = r;
-        break;
-      }
-    }
+    // Seleccionamos directamente la última ronda (la más alta) para que siempre muestre la fecha actual completa
+    const rondaSeleccionada = numerosRondas[numerosRondas.length - 1];
 
     console.log(`Ronda seleccionada correctamente: Fecha ${rondaSeleccionada}`);
 
@@ -78,7 +62,7 @@ async function actualizarConApiOficial() {
       const golesL = match.homeTeamScore ?? 0;
       const golesV = match.awayTeamScore ?? 0;
 
-      // Obtenemos el escudo directo de la API (con fallback por si falta)
+      // Obtenemos el escudo directo de la API (con fallback por si falta) exactamente como lo tenías
       const escudoLocal = match.homeTeam?.badge || match.homeTeamBadge || "escudo_default.png";
       const escudoVisitante = match.awayTeam?.badge || match.awayTeamBadge || "escudo_default.png";
 
