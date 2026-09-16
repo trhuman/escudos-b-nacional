@@ -1,37 +1,61 @@
 {
-  "fecha": "Fecha 24",
-  "actualizado": "2026-09-16T10:25:28.621Z",
+  "fecha": "Última Fecha Actualizada",
+  "actualizado": "2026-09-16T10:37:05.486Z",
   "partidos": [
     {
-      "local": "Chaco For Ever",
-      "archivoLocal": "https://media.goal-api.com/badges/886_chaco-for-ever.jpg",
+      "local": "Nueva Chicago",
+      "archivoLocal": "https://media.goal-api.com/badges/935_nueva-chicago.jpg",
       "golesLocal": 0,
-      "visitante": "Almirante Brown",
-      "archivoVisitante": "https://media.goal-api.com/badges/930_almirante-brown.jpg",
+      "visitante": "Temperley",
+      "archivoVisitante": "https://media.goal-api.com/badges/929_temperley.jpg",
       "golesVisitante": 0
     },
     {
-      "local": "Estudiantes Río Cuarto",
-      "archivoLocal": "https://media.goal-api.com/badges/932_estudiantes-rio-cuarto.jpg",
+      "local": "Deportivo Morón",
+      "archivoLocal": "https://media.goal-api.com/badges/951_deportivo-moron.jpg",
       "golesLocal": 0,
-      "visitante": "Nueva Chicago",
-      "archivoVisitante": "https://media.goal-api.com/badges/935_nueva-chicago.jpg",
+      "visitante": "Defensores Unidos",
+      "archivoVisitante": "https://media.goal-api.com/badges/913_defensores-unidos.jpg",
       "golesVisitante": 0
     },
     {
-      "local": "Colón",
-      "archivoLocal": "https://media.goal-api.com/badges/988_colon.jpg",
+      "local": "San Miguel",
+      "archivoLocal": "https://media.goal-api.com/badges/921_san-miguel.jpg",
       "golesLocal": 0,
-      "visitante": "Gimnasia Mendoza",
-      "archivoVisitante": "https://media.goal-api.com/badges/925_gimnasia-mendoza.jpg",
+      "visitante": "Deportivo Madryn",
+      "archivoVisitante": "https://media.goal-api.com/badges/897_deportivo-madryn.jpg",
       "golesVisitante": 0
     },
     {
-      "local": "Mitre Santiago d. Estero",
-      "archivoLocal": "https://media.goal-api.com/badges/926_mitre-santiago-d.-estero.jpg",
+      "local": "Almagro",
+      "archivoLocal": "https://media.goal-api.com/badges/955_almagro.jpg",
       "golesLocal": 0,
-      "visitante": "Central Norte",
-      "archivoVisitante": "https://media.goal-api.com/badges/885_central-norte.jpg",
+      "visitante": "Deportivo Maipú",
+      "archivoVisitante": "https://media.goal-api.com/badges/895_deportivo-maipu.jpg",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Colegiales",
+      "archivoLocal": "https://media.goal-api.com/badges/912_colegiales.jpg",
+      "golesLocal": 0,
+      "visitante": "Atlanta",
+      "archivoVisitante": "https://media.goal-api.com/badges/928_atlanta.jpg",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Deportivo Morón",
+      "archivoLocal": "https://media.goal-api.com/badges/951_deportivo-moron.jpg",
+      "golesLocal": 0,
+      "visitante": "Agropecuario",
+      "archivoVisitante": "https://media.goal-api.com/badges/937_agropecuario.jpg",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Quilmes",
+      "archivoLocal": "https://media.goal-api.com/badges/931_quilmes.jpg",
+      "golesLocal": 0,
+      "visitante": "Alvarado",
+      "archivoVisitante": "https://media.goal-api.com/badges/936_alvarado.jpg",
       "golesVisitante": 0
     },
     {
@@ -51,27 +75,11 @@
       "golesVisitante": 0
     },
     {
-      "local": "Deportivo Maipú",
-      "archivoLocal": "https://media.goal-api.com/badges/895_deportivo-maipu.jpg",
-      "golesLocal": 0,
-      "visitante": "Güemes",
-      "archivoVisitante": "https://media.goal-api.com/badges/884_guemes.jpg",
-      "golesVisitante": 0
-    },
-    {
       "local": "Alvarado",
       "archivoLocal": "https://media.goal-api.com/badges/936_alvarado.jpg",
       "golesLocal": 0,
       "visitante": "Ferro Carril Oeste",
       "archivoVisitante": "https://media.goal-api.com/badges/954_ferro-carril-oeste.jpg",
-      "golesVisitante": 0
-    },
-    {
-      "local": "Arsenal FC",
-      "archivoLocal": "https://media.goal-api.com/badges/997_arsenal-fc.jpg",
-      "golesLocal": 0,
-      "visitante": "San Miguel",
-      "archivoVisitante": "https://media.goal-api.com/badges/921_san-miguel.jpg",
       "golesVisitante": 0
     }
   ]
