@@ -2,34 +2,24 @@ const fs = require('fs');
 
 async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
-  console.log("Consultando la Primera Nacional (ID cmr77dvtd009brx0629uk9lp3) con temporada 2026...");
+  const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
+  
+  console.log("Consultando la Primera Nacional con el ID correcto...");
 
   try {
-    // Intentamos primero con los fixtures de la temporada 2026
-    let response = await fetch("https://api.goal-api.com/v1/leagues/cmr77dvtd009brx0629uk9lp3/fixtures?season=2026", {
+    const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026`, {
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
         "Accept": "application/json"
       }
     });
 
-    let jsonResponse = await response.json();
-    
-    // Si los fixtures vienen vacíos, probamos con results
-    if (!jsonResponse.data || jsonResponse.data.length === 0) {
-      console.log("Fixtures vacíos, probando con /results?season=2026...");
-      const resResults = await fetch("https://api.goal-api.com/v1/leagues/cmr77dvtd009brx0629uk9lp3/results?season=2026", {
-        headers: {
-          "Authorization": `Bearer ${API_KEY}`,
-          "Accept": "application/json"
-        }
-      });
-      jsonResponse = await resResults.json();
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
     }
 
-    console.log("JSON RECIBIDO DE LA API:", JSON.stringify(jsonResponse, null, 2));
-
-    const rawMatches = jsonResponse.data || jsonResponse.results || jsonResponse.matches || jsonResponse || [];
+    const jsonResponse = await response.json();
+    const listaPartidos = jsonResponse.data || [];
 
     const mapEscudo = (nombreRaw) => {
       const n = (nombreRaw || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
@@ -83,17 +73,18 @@ async function actualizarConApiOficial() {
     let partidosArray = [];
     let fechaActualTexto = "Fecha Actual";
 
-    const listaPartidos = Array.isArray(rawMatches) ? rawMatches : (rawMatches.data || []);
-
     if (listaPartidos.length > 0) {
       for (const match of listaPartidos) {
-        const localNombre = match.homeTeam?.name || match.home_team || match.local || "";
-        const visitaNombre = match.awayTeam?.name || match.away_team || match.visitante || "";
-        const golesL = match.homeScore ?? match.home_score ?? match.goalsHome ?? 0;
-        const golesV = match.awayScore ?? match.away_score ?? match.goalsAway ?? 0;
+        // Mapeo adaptado exactamente a la estructura del JSON que respondió la API
+        const localNombre = match.homeTeamName || match.homeTeam?.name || "";
+        const visitaNombre = match.awayTeamName || match.awayTeam?.name || "";
         
-        if (match.round) {
-          fechaActualTexto = match.round;
+        // Si hay score se usa, sino 0 por defecto
+        const golesL = match.homeTeamScore ?? 0;
+        const golesV = match.awayTeamScore ?? 0;
+        
+        if (match.matchRound) {
+          fechaActualTexto = `Fecha ${match.matchRound}`;
         }
 
         if (localNombre && visitaNombre) {
@@ -116,7 +107,7 @@ async function actualizarConApiOficial() {
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Proceso finalizado! Se guardaron ${partidosArray.length} partidos.`);
+    console.log(`¡Éxito total! Se procesaron y guardaron ${partidosArray.length} partidos en resultados.json.`);
 
   } catch (error) {
     console.error("Error en el script:", error.message);
