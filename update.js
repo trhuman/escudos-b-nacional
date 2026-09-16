@@ -4,7 +4,7 @@ async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
   const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
   
-  console.log("Conectando con la API y procesando fixtures por ID de fecha...");
+  console.log("Consultando fixtures y agrupando por ID de fecha (f1 a f35)...");
 
   try {
     const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026`, {
@@ -25,44 +25,74 @@ async function actualizarConApiOficial() {
       throw new Error("La API no devolvió partidos.");
     }
 
-    // Mapeamos los partidos extrayendo el número de ID (ej. "f29" -> 29) para ordenar correctamente
-    const partidosConIdNumerico = listaPartidos.map(match => {
-      const matchId = match.id || "";
-      const matchNum = matchId.match(/\d+/); // Extrae cualquier número dentro del id (ej: f29 -> 29)
-      return {
-        ...match,
-        idNumerico: matchNum ? parseInt(matchNum[0], 10) : 0
-      };
-    });
+    // 1. Agrupamos los partidos por su identificador de fecha exacto extraído del id (ej: "f1", "f29", etc.)
+    const fechasMap = {};
 
-    // Ordenamos por el número de ID de menor a mayor
-    partidosConIdNumerico.sort((a, b) => a.idNumerico - b.idNumerico);
-
-    // Identificamos el ID numérico más alto para saber cuál es la última fecha/bloque
-    const maxId = Math.max(...partidosConIdNumerico.map(p => p.idNumerico));
-    
-    // Si encontramos IDs numéricos, agrupamos los últimos partidos (bloque de la última fecha, ej. últimos 10 partidos)
-    let partidosDeLaJornada = [];
-    if (maxId > 0) {
-      // Tomamos los partidos que correspondan al bloque final o los últimos 10 partidos ordenados
-      partidosDeLaJornada = partidosConIdNumerico.slice(-10);
-    } else {
-      // Fallback por si acaso: los últimos 10 del array general
-      partidosDeLaJornada = listaPartidos.slice(-10);
+    for (const match of listaPartidos) {
+      const matchId = (match.id || "").toLowerCase();
+      // Buscamos el patrón 'f' seguido de un número (ej: f1, f35)
+      const matchFech = matchId.match(/f(\d+)/);
+      
+      if (matchFech) {
+        const numeroFecha = parseInt(matchFech[1], 10);
+        if (!fechasMap[numeroFecha]) {
+          fechasMap[numeroFecha] = [];
+        }
+        fechasMap[numeroFecha].push(match);
+      }
     }
 
-    console.log(`Procesando ${partidosDeLaJornada.length} partidos correspondientes al bloque más reciente.`);
+    const numerosDeFecha = Object.keys(fechasMap)
+      .map(num => parseInt(num, 10))
+      .sort((a, b) => a - b); // Ordenamos de f1 hasta f35
+
+    if (numerosDeFecha.length === 0) {
+      throw new Error("No se encontraron identificadores de fecha tipo 'f' en los partidos.");
+    }
+
+    // 2. Buscamos de atrás hacia adelante (desde la última fecha prevista, ej. 35, hacia atrás)
+    // la primera fecha que tenga partidos y donde TODOS estén finalizados ("FINISHED")
+    let fechaSeleccionadaNum = null;
+    let partidosDeLaFecha = [];
+
+    for (let i = numerosDeFecha.length - 1; i >= 0; i--) {
+      const numFecha = numerosDeFecha[i];
+      const partidos = fechasMap[numFecha];
+
+      if (partidos && partidos.length > 0) {
+        // Validamos si TODOS los partidos de esta fecha están finalizados
+        const todosFinalizados = partidos.every(match => {
+          const estado = (match.status || "").toUpperCase();
+          return estado === "FINISHED";
+        });
+
+        if (todosFinalizados) {
+          fechaSeleccionadaNum = numFecha;
+          partidosDeLaFecha = partidos;
+          break;
+        }
+      }
+    }
+
+    // Si por alguna razón ninguna fecha cumple con el 100% de finalizados, 
+    // caemos en la última fecha disponible que tenga al menos partidos jugados.
+    if (!fechaSeleccionadaNum) {
+      console.log("Aviso: No se encontró una fecha con el 100% de partidos finalizados. Tomando la última fecha jugada disponible.");
+      fechaSeleccionadaNum = numerosDeFecha[numerosDeFecha.length - 1];
+      partidosDeLaFecha = fechasMap[fechaSeleccionadaNum];
+    }
+
+    console.log(`Fecha seleccionada automáticamente: Fecha ${fechaSeleccionadaNum} (${partidosDeLaFecha.length} partidos)`);
 
     let partidosArray = [];
 
-    for (const match of partidosDeLaJornada) {
+    for (const match of partidosDeLaFecha) {
       const localNombre = match.homeTeam?.name || "";
       const visitaNombre = match.awayTeam?.name || "";
       
       let golesL = 0;
       let golesV = 0;
 
-      // Parseo seguro del score (ej: "2 - 1")
       if (match.score && typeof match.score === 'string' && match.score.includes('-')) {
         const partes = match.score.split('-');
         golesL = parseInt(partes[0].trim(), 10) || 0;
@@ -85,16 +115,16 @@ async function actualizarConApiOficial() {
     }
 
     const resultadoFinal = {
-      fecha: `Última Fecha Actualizada`,
+      fecha: `Fecha ${fechaSeleccionadaNum}`,
       actualizado: new Date().toISOString(),
       partidos: partidosArray
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Éxito total! Se guardaron ${partidosArray.length} partidos en resultados.json.`);
+    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos correspondientes a la Fecha ${fechaSeleccionadaNum}.`);
 
   } catch (error) {
-    console.error("Error crítico en el script:", error.message);
+    console.error("Error en el script:", error.message);
     process.exit(1);
   }
 }
