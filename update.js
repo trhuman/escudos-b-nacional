@@ -5,7 +5,7 @@ async function actualizarConApiOficial() {
   const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
   const CDN_DEFAULT = "https://cdn.jsdelivr.net/gh/trhuman/escudos-b-nacional@main/escudo_default.png";
   
-  console.log("Procesando y generando datos estáticos limpios con escudos de la API...");
+  console.log("Extrayendo escudos directamente desde la API...");
 
   try {
     const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026`, {
@@ -67,9 +67,14 @@ async function actualizarConApiOficial() {
       const golesL = match.homeTeamScore ?? 0;
       const golesV = match.awayTeamScore ?? 0;
 
-      // Extraemos la URL del escudo directamente de la API con respaldos por si viene vacía
-      const escudoLocal = match.homeTeam?.badge || match.homeTeam?.logo || match.homeTeam?.crest || CDN_DEFAULT;
-      const escudoVisita = match.awayTeam?.badge || match.awayTeam?.logo || match.awayTeam?.crest || CDN_DEFAULT;
+      // Función auxiliar para buscar cualquier propiedad de imagen que devuelva la API
+      const extraerEscudo = (team) => {
+        if (!team) return CDN_DEFAULT;
+        return team.badge || team.logo || team.crest || team.image || team.icon || team.teamBadge || CDN_DEFAULT;
+      };
+
+      const escudoLocal = extraerEscudo(match.homeTeam);
+      const escudoVisita = extraerEscudo(match.awayTeam);
 
       if (localNombre && visitaNombre) {
         partidosArray.push({
