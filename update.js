@@ -4,10 +4,9 @@ async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
   const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
   
-  console.log("Consultando la Primera Nacional para extraer la última fecha...");
+  console.log("Consultando la Primera Nacional para agrupar y extraer la última fecha completa...");
 
   try {
-    // Usamos fixtures con la temporada 2026 para tener todo el universo de partidos con sus fechas reales
     const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026`, {
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
@@ -75,42 +74,62 @@ async function actualizarConApiOficial() {
       throw new Error("La API no devolvió partidos.");
     }
 
-    // Obtenemos la fecha de hoy en formato string YYYY-MM-DD para comparar
     const hoyStr = new Date().toISOString().split('T')[0];
 
-    // Filtramos partidos cuya fecha sea menor o igual a hoy (ya jugados o jugándose hoy)
-    // o bien agrupamos directamente por la fecha (matchDate) más cercana hacia atrás.
-    const partidosPasadosOEnCurso = listaPartidos.filter(m => {
-      const fechaMatch = m.matchDate || m.date;
-      return fechaMatch && fechaMatch <= hoyStr;
-    });
-
-    if (partidosPasadosOEnCurso.length === 0) {
-      throw new Error("No se encontraron partidos anteriores o de hoy.");
+    // 1. Buscamos todas las rondas que tengan al menos un partido cuya fecha ya pasó o es hoy,
+    // o simplemente agrupamos por matchRound y filtramos las que tengan partidos disputados/en fecha.
+    const rondasConPartidos = {};
+    for (const match of listaPartidos) {
+      const ronda = match.matchRound;
+      const fechaMatch = match.matchDate || match.date;
+      
+      if (ronda) {
+        if (!rondasConPartidos[ronda]) {
+          rondasConPartidos[ronda] = [];
+        }
+        rondasConPartidos[ronda].push(match);
+      }
     }
 
-    // Buscamos cuál es la fecha calendario (YYYY-MM-DD) más alta dentro de los ya pasados/hoy
-    const fechasCalendario = [...new Set(partidosPasadosOEnCurso.map(m => m.matchDate || m.date))];
-    fechasCalendario.sort();
-    const ultimaFechaCalendario = fechasCalendario[fechasCalendario.length - 1];
+    // Identificamos las rondas numéricamente válidas
+    const numerosRondas = Object.keys(rondasConPartidos)
+      .map(r => parseInt(r, 10))
+      .filter(r => !isNaN(r))
+      .sort((a, b) => a - b);
 
-    console.log(`Última fecha de partidos disputados detectada: ${ultimaFechaCalendario}`);
+    if (numerosRondas.length === 0) {
+      throw new Error("No se encontraron números de ronda válidos en la API.");
+    }
 
-    // Filtramos los partidos que ocurrieron exactamente en ese último día de partidos
-    const partidosUltimaJornada = partidosPasadosOEnCurso.filter(m => (m.matchDate || m.date) === ultimaFechaCalendario);
+    // Buscamos la última ronda donde los partidos ya ocurrieron o están ocurriendo (cuya fecha sea menor o igual a hoy)
+    // Si ninguna cumple estrictamente, tomamos la ronda más alta disponible por defecto.
+    let rondaSeleccionada = numerosRondas[numerosRondas.length - 1];
 
+    for (let i = numerosRondas.length - 1; i >= 0; i--) {
+      const r = numerosRondas[i];
+      const partidosDeRonda = rondasConPartidos[r];
+      // Verificamos si al menos un partido de esta ronda ya pasó o es de hoy
+      const algunPartidoJugado = partidosDeRonda.some(m => {
+        const f = m.matchDate || m.date;
+        return f && f <= hoyStr;
+      });
+
+      if (algunPartidoJugado) {
+        rondaSeleccionada = r;
+        break;
+      }
+    }
+
+    console.log(`Ronda seleccionada correctamente: Fecha ${rondaSeleccionada}`);
+
+    const partidosDeLaFecha = rondasConPartidos[rondaSeleccionada] || [];
     let partidosArray = [];
-    let numeroRonda = "Última";
 
-    for (const match of partidosUltimaJornada) {
+    for (const match of partidosDeLaFecha) {
       const localNombre = match.homeTeamName || match.homeTeam?.name || "";
       const visitaNombre = match.awayTeamName || match.awayTeam?.name || "";
       const golesL = match.homeTeamScore ?? 0;
       const golesV = match.awayTeamScore ?? 0;
-
-      if (match.matchRound) {
-        numeroRonda = match.matchRound;
-      }
 
       if (localNombre && visitaNombre) {
         partidosArray.push({
@@ -125,13 +144,13 @@ async function actualizarConApiOficial() {
     }
 
     const resultadoFinal = {
-      fecha: `Fecha ${numeroRonda}`,
+      fecha: `Fecha ${rondaSeleccionada}`,
       actualizado: new Date().toISOString(),
       partidos: partidosArray
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos de la Fecha ${numeroRonda} (${ultimaFechaCalendario}).`);
+    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos correspondientes a la Fecha ${rondaSeleccionada}.`);
 
   } catch (error) {
     console.error("Error en el script:", error.message);
