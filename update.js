@@ -2,25 +2,33 @@ const fs = require('fs');
 
 async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
-  console.log("Consultando la API oficial mediante la ruta de ligas...");
+  console.log("Consultando la Primera Nacional (ID 1189) con temporada 2026...");
 
   try {
-    // Usamos la ruta oficial basada en la documentación: /leagues/:id/results
-    const response = await fetch("https://api.goal-api.com/v1/leagues/1189/results", {
+    // Intentamos primero con los fixtures de la temporada 2026
+    let response = await fetch("https://api.goal-api.com/v1/leagues/1189/fixtures?season=2026", {
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
         "Accept": "application/json"
       }
     });
 
-    if (!response.ok) {
-      throw new Error(`Error en la API oficial: ${response.status} ${response.statusText}`);
+    let jsonResponse = await response.json();
+    
+    // Si los fixtures vienen vacíos, probamos con results
+    if (!jsonResponse.data || jsonResponse.data.length === 0) {
+      console.log("Fixtures vacíos, probando con /results?season=2026...");
+      const resResults = await fetch("https://api.goal-api.com/v1/leagues/1189/results?season=2026", {
+        headers: {
+          "Authorization": `Bearer ${API_KEY}`,
+          "Accept": "application/json"
+        }
+      });
+      jsonResponse = await resResults.json();
     }
 
-    const jsonResponse = await response.json();
     console.log("JSON RECIBIDO DE LA API:", JSON.stringify(jsonResponse, null, 2));
 
-    // Extraemos la lista de partidos de la respuesta estructurada
     const rawMatches = jsonResponse.data || jsonResponse.results || jsonResponse.matches || jsonResponse || [];
 
     const mapEscudo = (nombreRaw) => {
@@ -108,10 +116,10 @@ async function actualizarConApiOficial() {
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos de la Primera Nacional.`);
+    console.log(`¡Proceso finalizado! Se guardaron ${partidosArray.length} partidos.`);
 
   } catch (error) {
-    console.error("Error crítico al procesar la API:", error.message);
+    console.error("Error en el script:", error.message);
     process.exit(1);
   }
 }
