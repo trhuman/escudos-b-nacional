@@ -4,10 +4,11 @@ async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
   const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
   
-  console.log("Buscando la última fecha con partidos finalizados...");
+  console.log("Consultando /results de la API oficial...");
 
   try {
-    const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026`, {
+    // Usamos el endpoint /results tal cual indica la documentación
+    const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/results`, {
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
         "Accept": "application/json"
@@ -22,67 +23,50 @@ async function actualizarConApiOficial() {
     const listaPartidos = jsonResponse.data || [];
 
     if (listaPartidos.length === 0) {
-      throw new Error("La API no devolvió partidos.");
+      throw new Error("La API no devolvió resultados.");
     }
 
-    // 1. Agrupamos los partidos por número de ronda
-    const rondasConPartidos = {};
+    // Agrupamos los partidos por su fecha (campo "date": "YYYY-MM-DD")
+    const partidosPorFecha = {};
     for (const match of listaPartidos) {
-      const ronda = match.matchRound;
-      if (ronda !== undefined && ronda !== null) {
-        if (!rondasConPartidos[ronda]) {
-          rondasConPartidos[ronda] = [];
+      const fechaPartido = match.date;
+      if (fechaPartido) {
+        if (!partidosPorFecha[fechaPartido]) {
+          partidosPorFecha[fechaPartido] = [];
         }
-        rondasConPartidos[ronda].push(match);
+        partidosPorFecha[fechaPartido].push(match);
       }
     }
 
-    // 2. Obtenemos todos los números de ronda y los ordenamos de menor a mayor
-    const numerosRondas = Object.keys(rondasConPartidos)
-      .map(r => parseInt(r, 10))
-      .filter(r => !isNaN(r))
-      .sort((a, b) => a - b);
+    // Ordenamos las fechas alfabéticamente (YYYY-MM-DD se ordena perfecto como string)
+    const fechasDisponibles = Object.keys(partidosPorFecha).sort();
 
-    if (numerosRondas.length === 0) {
-      throw new Error("No se encontraron números de ronda válidos en la API.");
+    if (fechasDisponibles.length === 0) {
+      throw new Error("No se encontraron fechas válidas en los resultados.");
     }
 
-    // 3. Buscamos de atrás hacia adelante (de la ronda más alta a la más baja)
-    // cuál es la primera ronda que tiene partidos válidos cargados.
-    let rondaSeleccionada = numerosRondas[0];
+    // Seleccionamos la fecha más reciente (la última del array ordenado)
+    const ultimaFecha = fechasDisponibles[fechasDisponibles.length - 1];
+    console.log(`Última fecha detectada en /results: ${ultimaFecha}`);
 
-    for (let i = numerosRondas.length - 1; i >= 0; i--) {
-      const r = numerosRondas[i];
-      const partidosDeRonda = rondasConPartidos[r];
-      
-      // Verificamos que la ronda tenga partidos y que al menos la mayoría tengan goles o estado finalizado
-      const partidosValidos = partidosDeRonda.filter(m => {
-        const local = m.homeTeamName || m.homeTeam?.name;
-        const visita = m.awayTeamName || m.awayTeam?.name;
-        return local && visita;
-      });
-
-      // Si esta ronda tiene partidos reales cargados, la tomamos inmediatamente como la última válida
-      if (partidosValidos.length >= 4) { // Una fecha normal de la B Nacional tiene varios partidos
-        rondaSeleccionada = r;
-        break;
-      }
-    }
-
-    console.log(`Ronda final seleccionada: Fecha ${rondaSeleccionada}`);
-
-    const partidosDeLaFecha = rondasConPartidos[rondaSeleccionada] || [];
+    const partidosDeLaFecha = partidosPorFecha[ultimaFecha] || [];
     let partidosArray = [];
 
     for (const match of partidosDeLaFecha) {
-      const localNombre = match.homeTeamName || match.homeTeam?.name || "";
-      const visitaNombre = match.awayTeamName || match.awayTeam?.name || "";
-      const golesL = match.homeTeamScore ?? 0;
-      const golesV = match.awayTeamScore ?? 0;
+      const localNombre = match.homeTeam?.name || "";
+      const visitaNombre = match.awayTeam?.name || "";
+      
+      // El score viene como string "3 - 2" según la documentación
+      let golesL = 0;
+      let golesV = 0;
+      if (match.score && typeof match.score === 'string' && match.score.includes('-')) {
+        const partes = match.score.split('-');
+        golesL = parseInt(partes[0].trim(), 10) || 0;
+        golesV = parseInt(partes[1].trim(), 10) || 0;
+      }
 
-      // Manejo de imágenes original que ya te funcionaba perfecto
-      const escudoLocal = match.homeTeam?.badge || match.homeTeamBadge || "escudo_default.png";
-      const escudoVisitante = match.awayTeam?.badge || match.awayTeamBadge || "escudo_default.png";
+      const escudoLocal = match.homeTeam?.badge || "escudo_default.png";
+      const escudoVisitante = match.awayTeam?.badge || "escudo_default.png";
 
       if (localNombre && visitaNombre) {
         partidosArray.push({
@@ -97,13 +81,13 @@ async function actualizarConApiOficial() {
     }
 
     const resultadoFinal = {
-      fecha: `Fecha ${rondaSeleccionada}`,
+      fecha: `Resultados del ${ultimaFecha}`,
       actualizado: new Date().toISOString(),
       partidos: partidosArray
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos de la Fecha ${rondaSeleccionada}.`);
+    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos correspondientes a la fecha ${ultimaFecha}.`);
 
   } catch (error) {
     console.error("Error en el script:", error.message);
