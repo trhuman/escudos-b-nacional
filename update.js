@@ -5,10 +5,10 @@ async function actualizarResultadosDinamicos() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
   const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
   
-  // IMPORTANTE: Agregamos &limit=500 para traer toda la temporada y no los primeros 50 partidos colgados
-  const url = `https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026&limit=500`;
+  // URL limpia y oficial según los endpoints soportados por la API
+  const url = `https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026`;
   
-  console.log("🔄 Consultando la temporada completa en la API de Goal-API...");
+  console.log("🔄 Consultando la API oficial de Goal-API...");
 
   try {
     const response = await fetch(url, {
@@ -58,7 +58,7 @@ async function actualizarResultadosDinamicos() {
 
     console.log(`📊 Rondas finalizadas detectadas: ${numerosRondas.join(", ")}`);
 
-    // 3. Seleccionamos la ronda más alta disponible (ej. Fecha 29)
+    // 3. Seleccionamos la ronda más alta disponible
     const ultimaRonda = numerosRondas[numerosRondas.length - 1];
     const partidosDeLaFecha = rondasMap[ultimaRonda];
 
@@ -98,7 +98,7 @@ async function actualizarResultadosDinamicos() {
       partidos: partidosArray
     };
 
-    // 5. Sobrescribimos el archivo resultados.json con los datos reales completos
+    // 5. Sobrescribimos el archivo resultados.json
     const rutaJson = path.join(__dirname, 'resultados.json');
     fs.writeFileSync(rutaJson, JSON.stringify(resultadoFinal, null, 2), 'utf-8');
 
