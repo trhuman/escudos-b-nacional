@@ -4,7 +4,7 @@ async function actualizarConApiOficial() {
   const API_KEY = "gapi_f269847bc4dc567a5184a0fd795f7ee862d8fea00f6b3e8e2dd8ae6ceafb2c01";
   const LEAGUE_ID = "cmr77dvtd009brx0629uk9lp3";
   
-  console.log("Consultando /fixtures de la API oficial para la temporada 2026...");
+  console.log("Consultando partidos finalizados de la API oficial de forma dinámica...");
 
   try {
     const response = await fetch(`https://api.goal-api.com/v1/leagues/${LEAGUE_ID}/fixtures?season=2026`, {
@@ -25,54 +25,33 @@ async function actualizarConApiOficial() {
       throw new Error("La API no devolvió partidos.");
     }
 
-    // 1. Agrupamos los partidos por su número de ronda (matchRound o round)
-    const rondasMap = {};
-    for (const match of listaPartidos) {
-      const rondaNum = match.matchRound || match.round;
-      if (rondaNum !== undefined && rondaNum !== null) {
-        const parsedRonda = parseInt(rondaNum, 10);
-        if (!isNaN(parsedRonda)) {
-          if (!rondasMap[parsedRonda]) {
-            rondasMap[parsedRonda] = [];
-          }
-          rondasMap[parsedRonda].push(match);
-        }
-      }
+    // 1. Filtramos únicamente los partidos que ya terminaron (status: "FINISHED")
+    const partidosTerminados = listaPartidos.filter(match => {
+      const estado = (match.status || "").toUpperCase();
+      return estado === "FINISHED";
+    });
+
+    if (partidosTerminados.length === 0) {
+      throw new Error("No se encontraron partidos con estado FINISHED en la temporada.");
     }
 
-    const numerosRondas = Object.keys(rondasMap)
-      .map(r => parseInt(r, 10))
-      .sort((a, b) => a - b);
+    // 2. Extraemos todas las fechas (YYYY-MM-DD) de los partidos terminados y las ordenamos
+    const fechasUnicas = [...new Set(partidosTerminados.map(m => (m.date || "").split('T')[0]))].filter(Boolean).sort();
 
-    if (numerosRondas.length === 0) {
-      throw new Error("No se encontraron números de ronda válidos en el fixture.");
+    if (fechasUnicas.length === 0) {
+      throw new Error("No se pudieron determinar las fechas de los partidos.");
     }
 
-    // 2. Buscamos de atrás hacia adelante la ronda más alta que ya tenga partidos finalizados
-    let rondaSeleccionada = numerosRondas[numerosRondas.length - 1]; // por defecto la última
+    // 3. Tomamos la fecha más reciente (la última del array ordenado)
+    const ultimaFechaJugada = fechasUnicas[fechasUnicas.length - 1];
+    console.log(`Última fecha de partidos finalizados detectada automáticamente: ${ultimaFechaJugada}`);
 
-    for (let i = numerosRondas.length - 1; i >= 0; i--) {
-      const r = numerosRondas[i];
-      const partidosDeRonda = rondasMap[r];
-      
-      const tieneFinalizados = partidosDeRonda.some(m => {
-        const estado = (m.status || "").toUpperCase();
-        return estado === "FINISHED" || (m.score && m.score.includes('-'));
-      });
+    // 4. Seleccionamos todos los partidos que correspondan estrictamente a ese día
+    const partidosDeLaJornada = partidosTerminados.filter(m => (m.date || "").startsWith(ultimaFechaJugada));
 
-      if (tieneFinalizados) {
-        rondaSeleccionada = r;
-        break;
-      }
-    }
-
-    console.log(`Última fecha del torneo detectada: Fecha ${rondaSeleccionada}`);
-
-    const partidosDeLaFecha = rondasMap[rondaSeleccionada] || [];
     let partidosArray = [];
 
-    for (const match of partidosDeLaFecha) {
-      // Mapeo exacto respetando el formato de /fixtures
+    for (const match of partidosDeLaJornada) {
       const localNombre = match.homeTeam?.name || "";
       const visitaNombre = match.awayTeam?.name || "";
       
@@ -101,13 +80,13 @@ async function actualizarConApiOficial() {
     }
 
     const resultadoFinal = {
-      fecha: `Fecha ${rondaSeleccionada}`,
+      fecha: `Resultados del ${ultimaFechaJugada}`,
       actualizado: new Date().toISOString(),
       partidos: partidosArray
     };
 
     fs.writeFileSync('resultados.json', JSON.stringify(resultadoFinal, null, 2));
-    console.log(`¡Éxito! Se guardaron ${partidosArray.length} partidos correspondientes a la Fecha ${rondaSeleccionada}.`);
+    console.log(`¡Éxito! Se guardaron automáticamente ${partidosArray.length} partidos correspondientes al día ${ultimaFechaJugada}.`);
 
   } catch (error) {
     console.error("Error en el script:", error.message);
