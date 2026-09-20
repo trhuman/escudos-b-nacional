@@ -1,14 +1,150 @@
 {
-  "fecha": "Fecha 7",
-  "actualizado": "2026-09-19T17:52:01.006Z",
+  "fecha": "Fecha 29",
+  "actualizado": "2026-09-20T14:26:21.211Z",
   "partidos": [
     {
       "local": "Defensores de Belgrano",
       "archivoLocal": "escudo_default.png",
+      "golesLocal": 2,
+      "visitante": "Deportivo Madryn",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 1
+    },
+    {
+      "local": "San Martín Tucumán",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 3,
+      "visitante": "Agropecuario",
+      "archivoVisitante": "agropecuario.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Godoy Cruz",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 2,
+      "visitante": "Colón",
+      "archivoVisitante": "colon.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Midland",
+      "archivoLocal": "escudo_default.png",
       "golesLocal": 1,
+      "visitante": "Chacarita Juniors",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Mitre Santiago d. Estero",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Chaco For Ever",
+      "archivoVisitante": "chaco_for_ever.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Gimnasia Jujuy",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 2,
       "visitante": "Atlético Rafaela",
       "archivoVisitante": "escudo_default.png",
       "golesVisitante": 1
+    },
+    {
+      "local": "Racing Córdoba",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 1,
+      "visitante": "Deportivo Morón",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 2
+    },
+    {
+      "local": "Almirante Brown",
+      "archivoLocal": "almirante_brown.png",
+      "golesLocal": 0,
+      "visitante": "Ferro Carril Oeste",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Estudiantes Caseros",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 1,
+      "visitante": "Acassuso",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Patronato",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Temperley",
+      "archivoVisitante": "temperley.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Los Andes",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 1,
+      "visitante": "San Miguel",
+      "archivoVisitante": "san_miguel.png",
+      "golesVisitante": 1
+    },
+    {
+      "local": "Quilmes",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 1,
+      "visitante": "San Martín San Juan",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Ciudad de Bolívar",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Central Norte",
+      "archivoVisitante": "central_norte.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "All Boys",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "San Telmo",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 1
+    },
+    {
+      "local": "Almagro",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 2,
+      "visitante": "Deportivo Maipú",
+      "archivoVisitante": "deportivo_maipu.png",
+      "golesVisitante": 2
+    },
+    {
+      "local": "Atlanta",
+      "archivoLocal": "atlanta.png",
+      "golesLocal": 2,
+      "visitante": "Güemes",
+      "archivoVisitante": "guemes.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Colegiales",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 1,
+      "visitante": "Nueva Chicago",
+      "archivoVisitante": "nueva_chicago.png",
+      "golesVisitante": 0
+    },
+    {
+      "local": "Gimnasia y Tiro",
+      "archivoLocal": "escudo_default.png",
+      "golesLocal": 0,
+      "visitante": "Tristán Suárez",
+      "archivoVisitante": "escudo_default.png",
+      "golesVisitante": 0
     }
   ]
 }
